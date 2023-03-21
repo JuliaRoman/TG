@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "easyfood",
+    "name": "Easy Food",
     "slug": "easyfood",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo_splash_screen.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#E7320E"
     },
     "assetBundlePatterns": [
       "**/*"
