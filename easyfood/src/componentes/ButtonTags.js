@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',
+    width: 200,
+    marginBottom: 5,
+    marginRight: 5,
   },
   text: {
     fontSize: 15,
@@ -27,5 +30,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'white',
+    textAlign: 'center',
   },
 });

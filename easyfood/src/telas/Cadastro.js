@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Text, TextInput, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, TextInput, StyleSheet, SafeAreaView, View } from 'react-native';
 
 import Button from '../componentes/Button';
 import ButtonTags from '../componentes/ButtonTags';
@@ -15,8 +14,18 @@ export default function Cadastro(){
             <TextInput secureTextEntry={true} style = {styles.input} placeholder="Insira uma nova senha" />
             <TextInput secureTextEntry={true} style = {styles.input} placeholder="Confirme sua senha" />
             <Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
+            <View style = {styles.flex}>
+                <ButtonTags title="Intolerância a glúten" />
+                <ButtonTags title="Vegetariano" />
+            </View>
+            <View style = {styles.flex}>
+                <ButtonTags title="Vegano" />
+                <ButtonTags title="Intolerância a lactose" />
+            </View>
+            <View style = {styles.flex}>
+                <ButtonTags title="Outro" />
+            </View>
             <Button title="Entrar" />
-            {/*<ButtonTags title="Vegano" />*/}
         </SafeAreaView>
     ); 
 }
@@ -58,7 +67,9 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '500',
     },
-    vegano:{
-        maxWidth: 100,
+    flex:{
+        flexDirection: 'row',
+        justifyContent:'center',
     },
 });
+

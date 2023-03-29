@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, Pressable, Alert } from 'react-native';
 
 export default function Button(props) {
-  const { onPress, title = 'teste' } = props;
+  const { onPress, title = 'teste', style } = props;
   return (
     <Pressable style={styles.button} onPress={() => Alert.alert('Cadastrado!')}>
       <Text style={styles.text}>{title}</Text>
