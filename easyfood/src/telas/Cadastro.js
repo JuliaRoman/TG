@@ -1,16 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
-import { View, Text } from 'react-native';
 
-export default function Cadastro() {
-  return (
-    <View>
-      <Text>Tela de Cadastro</Text>
-      {/* Seu código de formulário de cadastro aqui */}
-    </View>
-  );
-}
-=======
 import { Text, TextInput, StyleSheet, SafeAreaView } from 'react-native';
 
 import Button from '../componentes/Button';
@@ -73,5 +62,3 @@ const styles = StyleSheet.create({
         maxWidth: 100,
     },
 });
-
->>>>>>> 12f3b77df7a918fe1367169844f2b7d62a8ef3a8
