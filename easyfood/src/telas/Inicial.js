@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, TextInput, StyleSheet, SafeAreaView, Button, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Cadastro from './Cadastro.js';
+
 //import CheckBox from './src/componentes/Checkbox';
 
 
@@ -18,7 +18,11 @@ export default function Inicial(){
 
     function handleCadastro() {
         navigation.navigate('Cadastro');
-      }
+    }
+
+    function handleBuscaNome() {
+        navigation.navigate('Busca por nome');
+    }
 
     return (
         <SafeAreaView>
@@ -34,7 +38,7 @@ export default function Inicial(){
                 onChange={handleCheck}
             />*/}
             {/*<Button title="Entrar" style = {styles.botao} onPress={() => navigation.navigate('')}/>*/}
-            <Text style = {styles.botao}>Entrar</Text>
+            <Text style = {styles.botao} onPress={handleBuscaNome}>Entrar</Text>
             <Text style = {styles.mensagem}>Ainda não possui conta?<Text style = {styles.cadastrar} onPress={handleCadastro}> Cadastrar</Text></Text>    
             
         </SafeAreaView>

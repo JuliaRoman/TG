@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Cadastro from './src/telas/Cadastro.js';
 import Inicial from './src/telas/Inicial.js';
+import BuscaNome from './src/telas/BuscaNome.js';
 
 const Stack = createStackNavigator();
 
@@ -13,8 +14,9 @@ export default function App() {
       <StatusBar />
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Inicial">
-          <Stack.Screen name="Inicial" component={Inicial} />
-          <Stack.Screen name="Cadastro" component={Cadastro} />
+          <Stack.Screen name="Inicial" options={{headerShown:false}} component={Inicial} />
+          <Stack.Screen name="Cadastro" options={{headerShown:false}} component={Cadastro} />
+          <Stack.Screen name="Busca por nome" component={BuscaNome} />
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />
@@ -26,4 +28,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  displayNone: {
+    header: null,
+  }
 });

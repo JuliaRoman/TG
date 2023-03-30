@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
 import { Image, TextInput, StyleSheet, SafeAreaView } from 'react-native';
 
-import Button from '../componentes/Button';
-
 export default function BuscaNome(){
 
     return (
         <SafeAreaView>
             <Image style={styles.imgTitulo} source={require('../../assets/img_busca_por_nome.png')} />
             <TextInput style = {styles.input} placeholder="Insira o nome da receita" />
-            <Button title="Buscar" />
+            <Text style = {styles.button}>Buscar</Text>
         </SafeAreaView>
     ); 
 }
@@ -32,6 +30,22 @@ const styles = StyleSheet.create({
         marginTop:100,
         marginBottom:50,
         width:292,
+    },
+    button: {
+        backgroundColor: '#E7320E',
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: '900',
+        borderRadius: 50,
+        height: 50,
+        marginLeft: 50,
+        marginBottom: 5,
+        marginRight: 50,
+        paddingTop: 12.5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        textTransform: 'uppercase',
     },
 });
 
