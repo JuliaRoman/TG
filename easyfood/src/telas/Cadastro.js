@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     flex:{
         flexDirection: 'row',
         justifyContent:'center',
+        flex:1,
     },
 });
 
