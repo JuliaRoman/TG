@@ -1,7 +1,37 @@
 import React, {Component} from 'react';
-import { Image, TextInput, StyleSheet, SafeAreaView } from 'react-native';
+import { Image, TextInput, StyleSheet, SafeAreaView, processColor } from 'react-native';
+import axios from "axios";
+
 
 export default function BuscaNome(){
+
+    const [input, setInput] = useState("");
+    const [response, setResponse] = useState("");
+
+    const fetchResponse = async () => {
+        try {
+          const res = await axios.post(
+            "https://api.openai.com/v1/engines/text-davinci-003/completions",
+            {
+              prompt: input,
+              temperature: 0.3,
+              max_tokens: 300,
+              top_p: 1,
+              frequency_penalty: 0,
+              presence_penalty: 0,
+            },
+            {
+              headers: {
+                Authorization: process.env.REACT_APP_KEY,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          setResponse(res.data.choices[0].text);
+        } catch (err) {
+          console.error(err);
+        }
+    };
 
     return (
         <SafeAreaView>

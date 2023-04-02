@@ -16,7 +16,7 @@ export default function App() {
         <Stack.Navigator initialRouteName="Inicial">
           <Stack.Screen name="Inicial" options={{headerShown:false}} component={Inicial} />
           <Stack.Screen name="Cadastro" options={{headerShown:false}} component={Cadastro} />
-          <Stack.Screen name="Busca por nome" component={BuscaNome} />
+          <Stack.Screen name="BuscaNome" component={BuscaNome} />
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />

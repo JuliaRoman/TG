@@ -21,7 +21,7 @@ export default function Inicial(){
     }
 
     function handleBuscaNome() {
-        navigation.navigate('Busca por nome');
+        navigation.navigate('BuscaNome');
     }
 
     return (
