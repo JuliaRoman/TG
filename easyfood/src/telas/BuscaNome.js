@@ -1,13 +1,20 @@
 import React, {Component} from 'react';
-import { Image, TextInput, StyleSheet, SafeAreaView } from 'react-native';
+import { Image, TextInput, StyleSheet, SafeAreaView, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function BuscaNome(){
+
+    const navigation = useNavigation();
+
+    function handleReceita() {
+        navigation.navigate('Receita');
+    }
 
     return (
         <SafeAreaView>
             <Image style={styles.imgTitulo} source={require('../../assets/img_busca_por_nome.png')} />
             <TextInput style = {styles.input} placeholder="Insira o nome da receita" />
-            <Text style = {styles.button}>Buscar</Text>
+            <Text style = {styles.button} onPress={handleReceita}>Buscar</Text>
         </SafeAreaView>
     ); 
 }
