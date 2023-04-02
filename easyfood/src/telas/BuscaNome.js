@@ -1,8 +1,37 @@
-import React, {Component} from 'react';
-import { Image, TextInput, StyleSheet, SafeAreaView, Text } from 'react-native';
+import React, {Component, useState} from 'react';
+import { Image, TextInput, StyleSheet, SafeAreaView, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from "axios";
 
 export default function BuscaNome(){
+
+    const [input, setInput] = useState("");
+    const [response, setResponse] = useState("");
+
+    const recipeResponse = async () => {
+        try {
+          const res = await axios.post(
+            "https://api.openai.com/v1/engines/text-davinci-003/completions",
+            {
+              prompt: input,
+              temperature: 0.3,
+              max_tokens: 300,
+              top_p: 1,
+              frequency_penalty: 0,
+              presence_penalty: 0,
+            },
+            {
+              headers: {
+                Authorization: `Bearer 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`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          setResponse(res.data.choices[0].text);
+        } catch (err) {
+          console.error(err);
+        }
+      };
 
     const navigation = useNavigation();
 
@@ -13,8 +42,16 @@ export default function BuscaNome(){
     return (
         <SafeAreaView>
             <Image style={styles.imgTitulo} source={require('../../assets/img_busca_por_nome.png')} />
-            <TextInput style = {styles.input} placeholder="Insira o nome da receita" />
-            <Text style = {styles.button} onPress={handleReceita}>Buscar</Text>
+            
+            <TextInput style = {styles.input} placeholder="Insira o nome da receita" 
+            onChangeText={(text) => setInput(text)}
+            value={input}
+            
+            />
+            <Text style = {styles.button} onPress={recipeResponse}>Buscar</Text>
+            <View style={styles.responseContainer}>
+                <Text style={styles.responseText}>{response}</Text>
+            </View>
         </SafeAreaView>
     ); 
 }
@@ -53,6 +90,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
         textTransform: 'uppercase',
+    },
+    responseContainer: {
+        marginHorizontal: 20,
+    },
+    responseText: {
+        fontSize: 16,
+        fontWeight: "bold",
+        textAlign: "center",
     },
 });
 
