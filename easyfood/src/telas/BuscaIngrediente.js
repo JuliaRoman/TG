@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Image, TextInput, StyleSheet, SafeAreaView, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function BuscaNome(){
+export default function BuscaIngrediente(){
 
     const navigation = useNavigation();
 
@@ -12,8 +12,8 @@ export default function BuscaNome(){
 
     return (
         <SafeAreaView>
-            <Image style={styles.imgTitulo} source={require('../../assets/img_busca_nome.png')} />
-            <TextInput style = {styles.input} placeholder="Insira o nome da receita" />
+            <Image style={styles.imgTitulo} source={require('../../assets/img_busca_ingrediente.png')} />
+            <TextInput style = {styles.input} placeholder="Insira seu ingrediente!" />
             <Text style = {styles.button} onPress={handleReceita}>Buscar</Text>
 
         </SafeAreaView>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         marginTop:100,
         marginBottom:50,
         maxWidth: 300,
-        height: 115,
+        height: 130,
     },
     button: {
         backgroundColor: '#E7320E',

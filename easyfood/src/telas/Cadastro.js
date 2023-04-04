@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextInput, StyleSheet, SafeAreaView, View, Alert } from 'react-native';
+import { Alert, Text, TextInput, StyleSheet, SafeAreaView, View, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Cadastro(){
