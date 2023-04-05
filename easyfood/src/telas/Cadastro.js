@@ -7,7 +7,7 @@ export default function Cadastro(){
     const navigation = useNavigation();
 
     function handleBuscaNome() {
-        navigation.navigate('Busca por nome');
+        navigation.navigate('Busca por ingrediente');
     }
 
     function handleInicial() {
