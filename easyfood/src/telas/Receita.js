@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import { Text, StyleSheet, SafeAreaView } from 'react-native';
 
-export default function BuscaNome(){
+export default function Receita( {route} ){
+
+    const { response } = route.params;
+    console.log(response);
+    console.log(route.params);
 
     return (
         <SafeAreaView>
-            <Text style = {styles.txt}>Receita</Text>
+            <Text style = {styles.txt}>{response}</Text>
         </SafeAreaView>
     ); 
 }
