@@ -6,7 +6,7 @@ export default function Cadastro(){
 
     const navigation = useNavigation();
 
-    function handleBuscaNome() {
+    function handleBuscaIngrediente() {
         navigation.navigate('Busca por ingrediente');
     }
 
@@ -43,7 +43,7 @@ export default function Cadastro(){
                     <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag}>Outro</Text>
                 </View>
             </View>
-            <Text style = {styles.button} onPress={handleBuscaNome} >Entrar</Text>
+            <Text style = {styles.button} onPress={handleBuscaIngrediente} >Entrar</Text>
         </SafeAreaView>
     ); 
 }

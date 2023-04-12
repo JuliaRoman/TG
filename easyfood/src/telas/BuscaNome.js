@@ -12,7 +12,7 @@ export default function BuscaNome(){
 
     return (
         <SafeAreaView>
-            <Image style={styles.imgTitulo} source={require('../../assets/img_busca_por_nome.png')} />
+            <Image style={styles.imgTitulo} source={require('../../assets/img_busca_nome.png')} />
             <TextInput style = {styles.input} placeholder="Insira o nome da receita" />
             <Text style = {styles.button} onPress={handleReceita}>Buscar</Text>
         </SafeAreaView>
@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         marginTop:100,
         marginBottom:50,
-        width:292,
+        maxWidth: 310,
+        height: 120,
     },
     button: {
         backgroundColor: '#E7320E',

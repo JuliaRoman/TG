@@ -7,8 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function Inicial(){
 
-    /*const navigation = setNavigation();**/
-
     /*const [check, setCheck] = useState(false)
 
     function handleCheck() {
@@ -20,8 +18,8 @@ export default function Inicial(){
         navigation.navigate('Cadastro');
     }
 
-    function handleBuscaNome() {
-        navigation.navigate('Busca por nome');
+    function handleBuscaIngrediente() {
+        navigation.navigate('Busca por ingrediente');
     }
 
     return (
@@ -30,15 +28,7 @@ export default function Inicial(){
             <Text style = {styles.titulo}>Easy Food</Text>
             <TextInput style = {styles.input} placeholder="Digite seu e-mail" />
             <TextInput style = {styles.input} placeholder="Digite sua senha" />
-            
-            {/*<CheckBox label="Li e concordo com os Termos e Políticas de Privacidade." labelStyle={{ color: '#fff', fontSize: 16 }}
-                iconColor="#fff"
-                checkColor="#fff"
-                value={check}
-                onChange={handleCheck}
-            />*/}
-            {/*<Button title="Entrar" style = {styles.botao} onPress={() => navigation.navigate('')}/>*/}
-            <Text style = {styles.botao} onPress={handleBuscaNome}>Entrar</Text>
+            <Text style = {styles.botao} onPress={handleBuscaIngrediente}>Entrar</Text>
             <Text style = {styles.mensagem}>Ainda não possui conta?<Text style = {styles.cadastrar} onPress={handleCadastro}> Cadastrar</Text></Text>    
             
         </SafeAreaView>
@@ -86,7 +76,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         height: 50,
         marginLeft: 50,
-        marginBottom: 5,
+        marginBottom: 15,
         marginRight: 50,
         textAlign:'center',
         paddingTop: 12.5,
