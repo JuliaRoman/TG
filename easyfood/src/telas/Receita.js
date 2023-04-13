@@ -2,7 +2,11 @@ import React, {Component} from 'react';
 import { Text, StyleSheet, SafeAreaView, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function BuscaNome(){
+export default function Receita( {route} ){
+
+    const { response } = route.params;
+    console.log(response);
+    console.log(route.params);
 
     const navigation = useNavigation();
 
@@ -16,7 +20,7 @@ export default function BuscaNome(){
     return (
         <SafeAreaView style = {styles.tela}>
             <Text style = {styles.txt}>Receita</Text>
-
+            <Text style = {styles.txt}>{response}</Text>
             {/*Botões flutuantes*/}
             <Text style = {[styles.btnFlutuante, styles.btnBusca]} onPress={handleBusca}>
                 <Image style={styles.icn} source={require('../../assets/icon_search.png')} />
