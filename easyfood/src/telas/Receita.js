@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, StyleSheet, SafeAreaView, Image, Alert } from 'react-native';
+import { Text, StyleSheet, SafeAreaView, Image, Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Receita( {route} ){
@@ -19,15 +19,16 @@ export default function Receita( {route} ){
     }
     return (
         <SafeAreaView style = {styles.tela}>
-            <Text style = {styles.txt}>Receita</Text>
-            <Text style = {styles.txt}>{response}</Text>
+            <ScrollView>
+                <Text style = {styles.txt}>{response}</Text>
+            </ScrollView>
             {/*Botões flutuantes*/}
             <Text style = {[styles.btnFlutuante, styles.btnBusca]} onPress={handleBusca}>
-                <Image style={styles.icn} source={require('../../assets/icon_search.png')} />
-            </Text>
-            <Text style = {[styles.btnFlutuante, styles.btnPerfil]} onPress={handlePerfil}>
-                <Image style={styles.icn} source={require('../../assets/icon_perfil.png')} />
-            </Text>
+                    <Image style={styles.icn} source={require('../../assets/icon_search.png')} />
+                </Text>
+                <Text style = {[styles.btnFlutuante, styles.btnPerfil]} onPress={handlePerfil}>
+                    <Image style={styles.icn} source={require('../../assets/icon_perfil.png')} />
+                </Text>
         </SafeAreaView>
     ); 
 }
@@ -38,15 +39,15 @@ const styles = StyleSheet.create({
     },
     txt:{
         marginLeft: 50,
-        marginTop: 70,
         marginRight: 50,
         fontSize: 16,
         color: '#5B5B5B',
         fontSize:16,
+        paddingBottom:50,
     },
     btnFlutuante:{
         position:'absolute',
-        bottom:50,
+        bottom:20,
         width:60,
         height:60,
         borderRadius:50,
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     },
     btnPerfil:{
         backgroundColor:'#2c2c2c',
-        right:50,
+        right:25,
     },
     icn:{
         resizeMode:'contain',

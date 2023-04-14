@@ -14,7 +14,7 @@ export default function BuscaNome(){
         const res = await axios.post(
           "https://api.openai.com/v1/engines/text-davinci-003/completions",
           {
-            prompt: "me dê apenas uma receita existente (em formato de receita), descreva o sabor e apresente sua instrução com os ingredientes em [ "+ input + " ].\n Caso seja inserido algo que possa ferir os direitos humanos, diga que isso é proíbido. \n Se não foi inserido um ingrediente ou foi inserido um texto sem nexo com o assunto, então avise que não foram passados ingredientes validos e não dê uma receita.\nCaso não tenha nenhuma receita já existente que use apenas esses ingredientes como principal, indique outra receita com ingredientes similares ou deixe claro que não existe uma receita e sobre a questão disso na saúde.",
+            prompt: "me dê apenas uma receita existente (em formato de receita), descreva o sabor e apresente sua instrução com o titulo [ "+ input + " ].\n Caso seja inserido algo que possa ferir os direitos humanos, diga que isso é proíbido. \n Se não foi inserido um nome de receita ou foi inserido um texto sem nexo com o assunto, então avise que não foi passado uma receita válida e não dê uma receita.\nCaso não tenha nenhuma receita já existente que use apenas esses ingredientes como principal, indique outra receita com ingredientes similares ou deixe claro que não existe uma receita e sobre a questão disso na saúde.",
             temperature: 0.3,
             max_tokens: 600,
             top_p: 1,
