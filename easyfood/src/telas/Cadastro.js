@@ -3,7 +3,7 @@ import { Text, TextInput, StyleSheet, SafeAreaView, View, Alert } from 'react-na
 import { useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../firebase-config';
+import { firebaseConfig } from './firebase-config';
 
 export default function Cadastro(){
 
@@ -17,12 +17,15 @@ export default function Cadastro(){
         createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
             console.log('Account created')
-            const user = userCredential.user
+            const user = userCredential.user;
             console.log(user);
             handleBuscaIngrediente();
         })
         .catch(error => {
-            console.log(error)
+            console.log(error);
+            alert(error);
+            console.log(email);
+            console.log(password);
         })
     }
 

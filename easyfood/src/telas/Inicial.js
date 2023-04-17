@@ -2,8 +2,8 @@ import React from 'react';
 import { Text, TextInput, StyleSheet, SafeAreaView, Button, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../firebase-config';
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from './firebase-config';
 
 
 //import CheckBox from './src/componentes/Checkbox';
@@ -28,6 +28,7 @@ export default function Inicial(){
         })
         .catch(error => {
             console.log(error);
+            alert(error.message);
             Alert.alert(error.message);
         })
     }
@@ -55,7 +56,7 @@ export default function Inicial(){
             <Text style = {styles.chamada}>Bem vindo ao</Text>
             <Text style = {styles.titulo}>Easy Food</Text>
             <TextInput onChangeText={(text) => setEmail(text)} style = {styles.input} placeholder="Digite seu e-mail" />
-            <TextInput onChangeText={(text) => setPassword(text)} style = {styles.input} placeholder="Digite sua senha" />
+            <TextInput onChangeText={(text) => setPassword(text)} secureTextEntry={true} style = {styles.input} placeholder="Digite sua senha" />
             
             {/*<CheckBox label="Li e concordo com os Termos e Políticas de Privacidade." labelStyle={{ color: '#fff', fontSize: 16 }}
                 iconColor="#fff"
