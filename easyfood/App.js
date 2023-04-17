@@ -18,8 +18,8 @@ export default function App() {
         <Stack.Navigator initialRouteName="Inicial">
           <Stack.Screen name="Inicial" options={{headerShown:false}} component={Inicial} />
           <Stack.Screen name="Cadastro" options={{headerShown:false}} component={Cadastro} />
-          <Stack.Screen name="Busca por ingrediente" options={{headerShown:false}} component={BuscaIngrediente} />
-          <Stack.Screen name="Busca por nome" component={BuscaNome} />
+          <Stack.Screen name="BuscaIngrediente" options={{headerShown:false}} component={BuscaIngrediente} />
+          <Stack.Screen name="BuscaNome" component={BuscaNome} />
           <Stack.Screen name="Receita" component={Receita} />
         </Stack.Navigator>
       </NavigationContainer>

@@ -1,13 +1,35 @@
 import React from 'react';
 import { Text, TextInput, StyleSheet, SafeAreaView, View, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../../firebase-config';
 
 export default function Cadastro(){
+
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const handleCreateAccount = () => {
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+            console.log('Account created')
+            const user = userCredential.user
+            console.log(user);
+            handleBuscaIngrediente();
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
 
     const navigation = useNavigation();
 
     function handleBuscaIngrediente() {
-        navigation.navigate('Busca por ingrediente');
+        navigation.navigate('BuscaNome');
     }
 
     function handleInicial() {
@@ -26,8 +48,8 @@ export default function Cadastro(){
                 <Text style = {[styles.mensagem, styles.cadastrar]} onPress={handleInicial} >Acessar!</Text>
             </View>
             <TextInput style = {styles.input} placeholder="Insira seu nome" />
-            <TextInput style = {styles.input} placeholder="Insira seu e-mail" />
-            <TextInput secureTextEntry={true} style = {styles.input} placeholder="Insira uma nova senha" />
+            <TextInput onChangeText={(text) => setEmail(text)} style = {styles.input} placeholder="Insira seu e-mail" />
+            <TextInput onChange={(text) => setPassword(text)} secureTextEntry={true} style = {styles.input} placeholder="Insira uma nova senha" />
             <TextInput secureTextEntry={true} style = {styles.input} placeholder="Confirme sua senha" />
             <Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
             <View style = {styles.restricoes}>
@@ -43,7 +65,7 @@ export default function Cadastro(){
                     <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag}>Outro</Text>
                 </View>
             </View>
-            <Text style = {styles.button} onPress={handleBuscaIngrediente} >Entrar</Text>
+            <Text style = {styles.button} onPress={handleCreateAccount} >Entrar</Text>
         </SafeAreaView>
     ); 
 }

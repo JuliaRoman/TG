@@ -1,11 +1,39 @@
 import React from 'react';
 import { Text, TextInput, StyleSheet, SafeAreaView, Button, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../../firebase-config';
+
 
 //import CheckBox from './src/componentes/Checkbox';
 
 
 export default function Inicial(){
+
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+
+    const handleSignIn = () => {
+        signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+            console.log('Signed in!');
+            const user = userCredential.user;
+            console.log(user);
+            handleBuscaNome();
+        })
+        .catch(error => {
+            console.log(error);
+            Alert.alert(error.message);
+        })
+    }
+
+
+    /*const navigation = setNavigation();**/
 
     /*const [check, setCheck] = useState(false)
 
@@ -18,17 +46,25 @@ export default function Inicial(){
         navigation.navigate('Cadastro');
     }
 
-    function handleBuscaIngrediente() {
-        navigation.navigate('Busca por ingrediente');
+    function handleBuscaNome() {
+        navigation.navigate('BuscaNome');
     }
 
     return (
         <SafeAreaView>
             <Text style = {styles.chamada}>Bem vindo ao</Text>
             <Text style = {styles.titulo}>Easy Food</Text>
-            <TextInput style = {styles.input} placeholder="Digite seu e-mail" />
-            <TextInput style = {styles.input} placeholder="Digite sua senha" />
-            <Text style = {styles.botao} onPress={handleBuscaIngrediente}>Entrar</Text>
+            <TextInput onChangeText={(text) => setEmail(text)} style = {styles.input} placeholder="Digite seu e-mail" />
+            <TextInput onChangeText={(text) => setPassword(text)} style = {styles.input} placeholder="Digite sua senha" />
+            
+            {/*<CheckBox label="Li e concordo com os Termos e Políticas de Privacidade." labelStyle={{ color: '#fff', fontSize: 16 }}
+                iconColor="#fff"
+                checkColor="#fff"
+                value={check}
+                onChange={handleCheck}
+            />*/}
+            {/*<Button title="Entrar" style = {styles.botao} onPress={() => navigation.navigate('')}/>*/}
+            <Text style = {styles.botao} onPress={handleSignIn}>Entrar</Text>
             <Text style = {styles.mensagem}>Ainda não possui conta?<Text style = {styles.cadastrar} onPress={handleCadastro}> Cadastrar</Text></Text>    
             
         </SafeAreaView>
@@ -76,7 +112,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         height: 50,
         marginLeft: 50,
-        marginBottom: 15,
+        marginBottom: 5,
         marginRight: 50,
         textAlign:'center',
         paddingTop: 12.5,
