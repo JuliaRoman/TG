@@ -2,6 +2,7 @@
   "dependencies": {
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
-    "async": "^3.2.4"
+    "async": "^3.2.4",
+    "expo": "^48.0.11"
   }
 }

@@ -11,6 +11,16 @@ export default function BuscaIngrediente(){
     const [lista, setLista] = useState([]);
     const [listaFinal, setListaFinal] = useState("");
 
+    const adicionarIngrediente = () => {
+        if(ingrediente==''){
+            Alert.alert("Campo vazio!");
+        }else{
+            setLista(lista.concat(ingrediente));
+            setIngrediente('');
+            setListaFinal(lista.join(', '));
+        }
+    }
+
     const recipeResponse = async () => {
         try {
           const res = await axios.post(
@@ -38,21 +48,11 @@ export default function BuscaIngrediente(){
         }
       };
 
-    const adicionarIngrediente = () => {
-        if(ingrediente==''){
-            Alert.alert("Campo vazio!");
-        }else{
-            setLista(lista.concat(ingrediente));
-            setIngrediente('');
-        }
-    }
-
     const removerIngrediente = () => {
         setLista(lista.filter(setLista, lista.indexOf(ingrediente)));
     }
 
     function handleReceita(finalResponse) {
-        setListaFinal(lista.join(', '));
         console.log("\n\ntransportando.... : " + finalResponse);
         navigation.navigate('Receita', {response: finalResponse});
     }
@@ -69,7 +69,7 @@ export default function BuscaIngrediente(){
             <View style={styles.flex}>
                 <TextInput style = {styles.input} value={ingrediente} onChangeText={(ingrediente)=>setIngrediente(ingrediente)} placeholder="Insira um ingrediente" />
                 <TouchableWithoutFeedback onPress={adicionarIngrediente}>
-                    <Text style = {styles.buttonPlus} >+</Text>
+                    <Text style = {styles.buttonPlus}>+</Text>
                 </TouchableWithoutFeedback>
             </View>
             <FlatList style = {styles.listagem} data={lista} key={ingrediente} keyExtractor={item => item} renderItem={handleRenderIng} />
