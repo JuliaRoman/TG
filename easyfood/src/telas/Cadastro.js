@@ -11,23 +11,23 @@ export default function Cadastro(){
     const [password, setPassword] = React.useState('');
 
     const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    /*const auth = getAuth(app);*/
 
-    const handleCreateAccount = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            console.log('Account created')
-            const user = userCredential.user;
-            console.log(user);
-            handleBuscaIngrediente();
-        })
-        .catch(error => {
-            console.log(error);
-            alert(error);
-            console.log(email);
-            console.log(password);
-        })
-    }
+    // const handleCreateAccount = () => {
+    //     createUserWithEmailAndPassword(auth, email, password)
+    //     .then(() => {
+    //         console.log('Account created')
+    //         const user = userCredential.user;
+    //         console.log(user);
+    //         handleBuscaIngrediente();
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //         alert(error);
+    //         console.log(email);
+    //         console.log(password);
+    //     })
+    // }
 
     const navigation = useNavigation();
 
@@ -46,14 +46,11 @@ export default function Cadastro(){
     return (
         
         <SafeAreaView>
-            <View style = {styles.voltar}>
+            {/*<View style = {styles.voltar}>
                 <Text style = {styles.mensagem}>Já possui conta?</Text>
                 <Text style = {[styles.mensagem, styles.cadastrar]} onPress={handleInicial} >Acessar!</Text>
-            </View>
-            <TextInput style = {styles.input} placeholder="Insira seu nome" />
-            <TextInput onChangeText={(text) => setEmail(text)} style = {styles.input} placeholder="Insira seu e-mail" />
-            <TextInput onChange={(text) => setPassword(text)} secureTextEntry={true} style = {styles.input} placeholder="Insira uma nova senha" />
-            <TextInput secureTextEntry={true} style = {styles.input} placeholder="Confirme sua senha" />
+            </View>*/}
+            
             <Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
             <View style = {styles.restricoes}>
                 <View style = {styles.flex}>

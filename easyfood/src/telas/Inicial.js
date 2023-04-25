@@ -66,8 +66,12 @@ export default function Inicial(){
             />*/}
             {/*<Button title="Entrar" style = {styles.botao} onPress={() => navigation.navigate('')}/>*/}
             <Text style = {styles.botao} onPress={handleSignIn}>Entrar</Text>
-            <Text style = {styles.mensagem}>Ainda não possui conta?<Text style = {styles.cadastrar} onPress={handleCadastro}> Cadastrar</Text></Text>    
-            
+            <Text style = {styles.mensagem}>Ainda não possui conta?</Text>    
+
+            <TextInput style = {styles.input} placeholder="Insira seu nome" />
+            <TextInput onChangeText={(text) => setEmail(text)} style = {styles.input} placeholder="Insira seu e-mail" />
+            <TextInput onChange={(text) => setPassword(text)} secureTextEntry={true} style = {styles.input} placeholder="Insira uma nova senha" />
+            <Text style = {styles.botao} onPress={handleCadastro}>Sadastrar</Text>
         </SafeAreaView>
     ); 
 }
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
     chamada: {
         fontWeight:'500',
         fontSize: 24,
-        marginTop: 150,
+        marginTop: 75,
         marginLeft: 50,
         color: '#5B5B5B',
     },
@@ -85,7 +89,7 @@ const styles = StyleSheet.create({
         color: '#E7320E',
         fontSize: 40,
         marginLeft: 50,
-        marginBottom: 200,
+        marginBottom: 70,
     },
     input:{
         borderWidth:1,
@@ -123,15 +127,11 @@ const styles = StyleSheet.create({
         color: '#3E3E3E',
         fontSize: 14,
         fontWeight: '500',
+        marginTop: 15,
         marginLeft: 50,
         marginBottom: 20,
         marginRight: 50,
         textAlign:'center',
-    },
-    cadastrar:{
-        color: '#E7320E',
-        fontSize: 14,
-        fontWeight: '500',
     },
 });
 
