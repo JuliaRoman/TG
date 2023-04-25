@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import Cadastro from './src/telas/Cadastro.js';
 import Inicial from './src/telas/Inicial.js';
 import BuscaNome from './src/telas/BuscaNome.js';
 import Receita from './src/telas/Receita.js';
 import BuscaIngrediente from './src/telas/BuscaIngrediente.js';
 
+import {criaTabela} from "./src/servicos/Tabelas.js"
+
 const Stack = createStackNavigator();
 
 export default function App() {
+
+  useEffect (() => {
+    criaTabela();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />

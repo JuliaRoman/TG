@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Text, TextInput, StyleSheet, SafeAreaView, View, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Cadastro(){
 
     const navigation = useNavigation();
+
+    const [user, setUser] = useState("");
 
     function handleBuscaIngrediente() {
         navigation.navigate('Busca por ingrediente');
@@ -14,7 +16,7 @@ export default function Cadastro(){
         navigation.navigate('Inicial');
     }
 
-    function adicionarTag(){
+    function adicionarTag(restricao){
         Alert.alert('Categoria selecionada');
     }
   
@@ -32,12 +34,12 @@ export default function Cadastro(){
             <Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
             <View style = {styles.restricoes}>
                 <View style = {styles.flex}>
-                    <Text style = {styles.tags} onPress={adicionarTag}>Intolerância a glúten</Text>
-                    <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag}>Vegetariano</Text>
+                    <Text style = {styles.tags} onPress={adicionarTag("Intolerância a glúten")}>Intolerância a glúten</Text>
+                    <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag("vegetariano")}>Vegetariano</Text>
                 </View>
                 <View style = {styles.flex}>
-                    <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag}>Vegano</Text>
-                    <Text style = {styles.tags} onPress={adicionarTag}>Intolerância a lactose</Text>
+                    <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag("Vegano")}>Vegano</Text>
+                    <Text style = {styles.tags} onPress={adicionarTag("Intolerância a lactose")}>Intolerância a lactose</Text>
                 </View>
                 <View style = {styles.flex}>
                     <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag}>Outro</Text>

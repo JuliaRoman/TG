@@ -2,7 +2,6 @@ import React, {useState, Component} from 'react';
 import { Image, TextInput, StyleSheet, SafeAreaView, Alert, Text, View, FlatList, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import { concat } from 'async';
 
 export default function BuscaIngrediente(){
 
