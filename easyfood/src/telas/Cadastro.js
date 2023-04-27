@@ -4,30 +4,41 @@ import { useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './firebase-config';
+//import { set } from 'react-native-reanimated';
 
-export default function Cadastro(){
+export default function Cadastro( {route} ){
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const { emailResponse } = route.params;
+    const { passwordResponse } = route.params;
+
+    // const [email, setEmail] = React.useState('');
+    // const [password, setPassword] = React.useState('');
+
+
+    
 
     const app = initializeApp(firebaseConfig);
-    /*const auth = getAuth(app);*/
+    const auth = getAuth(app);
 
-    // const handleCreateAccount = () => {
-    //     createUserWithEmailAndPassword(auth, email, password)
-    //     .then(() => {
-    //         console.log('Account created')
-    //         const user = userCredential.user;
-    //         console.log(user);
-    //         handleBuscaIngrediente();
-    //     })
-    //     .catch(error => {
-    //         console.log(error);
-    //         alert(error);
-    //         console.log(email);
-    //         console.log(password);
-    //     })
-    // }
+    const handleCreateAccount = () => {
+        createUserWithEmailAndPassword(auth, emailResponse, passwordResponse)
+        .then((userCredential) => {
+            console.log('Account created')
+            const user = userCredential.user;
+            console.log(user);
+            AlertCadastrou();
+        })
+        .catch(error => {
+            console.log(error);
+            Alert.alert('Email incorreto!', 'Use um email válido!', [
+                {text: 'Voltar e corrigir', onPress: () => handleInicial()},
+              ]);
+            console.log(emailResponse);
+
+            console.log(passwordResponse);
+
+        })
+    }
 
     const navigation = useNavigation();
 
@@ -42,6 +53,11 @@ export default function Cadastro(){
     function adicionarTag(){
         Alert.alert('Categoria selecionada');
     }
+
+    const AlertCadastrou = () =>
+    Alert.alert('Cadastro completo!', 'Aproveite nosso aplicativo!', [
+      {text: 'Vamos nessa!', onPress: () => handleBuscaIngrediente},
+    ]);
   
     return (
         

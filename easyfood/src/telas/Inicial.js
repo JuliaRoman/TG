@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, TextInput, StyleSheet, SafeAreaView, Button, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, StyleSheet, SafeAreaView, Alert, Button, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,  } from 'firebase/auth';
+import { FirebaseError, initializeApp } from "firebase/app";
 import { firebaseConfig } from './firebase-config';
 
 
@@ -13,6 +13,8 @@ export default function Inicial(){
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [emailCadastro, setEmailCadastro] = React.useState('');
+    const [passwordCadastro, setPasswordCadastro] = React.useState('');
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
@@ -20,7 +22,7 @@ export default function Inicial(){
 
     const handleSignIn = () => {
         signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
+        .then((userCredential) => {
             console.log('Signed in!');
             const user = userCredential.user;
             console.log(user);
@@ -34,6 +36,18 @@ export default function Inicial(){
     }
 
 
+    const AlertCadastrar = () =>
+    Alert.alert('Quase lá!', 'Continue o cadastro na próxima tela, apresentando suas restrições alimentares!', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => handleCadastro(emailCadastro, passwordCadastro)},
+    ]);
+
+
+
     /*const navigation = setNavigation();**/
 
     /*const [check, setCheck] = useState(false)
@@ -43,12 +57,19 @@ export default function Inicial(){
     }*/
     const navigation = useNavigation();
 
-    function handleCadastro() {
-        navigation.navigate('Cadastro');
+    function handleCadastro(email,password) {
+        console.log(typeof(email))
+        console.log("cadastro", email, password);
+        navigation.navigate('Cadastro',{emailResponse: email, passwordResponse: password});
+        console.log("passou pelo handleCadastro");
     }
 
     function handleBuscaNome() {
         navigation.navigate('BuscaNome');
+    }
+
+    function handleBuscaIngrediente() {
+        navigation.navigate('BuscaIngrediente');
     }
 
     return (
@@ -69,9 +90,9 @@ export default function Inicial(){
             <Text style = {styles.mensagem}>Ainda não possui conta?</Text>    
 
             <TextInput style = {styles.input} placeholder="Insira seu nome" />
-            <TextInput onChangeText={(text) => setEmail(text)} style = {styles.input} placeholder="Insira seu e-mail" />
-            <TextInput onChange={(text) => setPassword(text)} secureTextEntry={true} style = {styles.input} placeholder="Insira uma nova senha" />
-            <Text style = {styles.botao} onPress={handleCadastro}>Sadastrar</Text>
+            <TextInput onChangeText={(text) => setEmailCadastro(text)} style = {styles.input} placeholder="Insira seu e-mail" />
+            <TextInput onChangeText={(text) => setPasswordCadastro(text)} secureTextEntry={true} style = {styles.input} placeholder="Insira uma nova senha" />
+            <Text style = {styles.botao} onPress={AlertCadastrar}>Cadastrar</Text>
         </SafeAreaView>
     ); 
 }

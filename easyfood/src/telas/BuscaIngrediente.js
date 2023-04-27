@@ -58,7 +58,7 @@ export default function BuscaIngrediente(){
     }
 
     function handleBuscaNome() {
-        navigation.navigate('Busca por nome');
+        navigation.navigate('BuscaNome');
     }
 
     const handleRenderIng = ({item}) => <Text style = {styles.tags}>{item} {/*<TouchableWithoutFeedback onPress={removerIngrediente}><Text>x</Text></TouchableWithoutFeedback>*/}</Text>
