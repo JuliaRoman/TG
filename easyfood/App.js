@@ -20,7 +20,7 @@ export default function App() {
           <Stack.Screen name="Cadastro" options={{headerShown:false}} component={Cadastro} />
           <Stack.Screen name="BuscaIngrediente" options={{headerShown:false}} component={BuscaIngrediente} />
           <Stack.Screen name="BuscaNome" component={BuscaNome} />
-          <Stack.Screen name="Receita" component={Receita} />
+          <Stack.Screen name="Receita" options={{headerShown:false}} component={Receita} />
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />

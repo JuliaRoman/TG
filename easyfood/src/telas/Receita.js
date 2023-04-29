@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, StyleSheet, SafeAreaView, Image, Alert, ScrollView } from 'react-native';
+import { Text, StyleSheet, SafeAreaView, Image, Alert, ScrollView, Share } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Receita( {route} ){
@@ -10,8 +10,17 @@ export default function Receita( {route} ){
 
     const navigation = useNavigation();
 
+    const share = () => {
+        Share.share({
+            message: response,
+        })
+        .then((result) => console.log(result)) // Escreve resultado compartilhado no console
+        .catch((erro) => console.log(erro)); // Em caso de erro, o escreve console
+        
+    }
+
     function handleBusca() {
-        navigation.navigate('Busca por ingrediente');
+        navigation.navigate('BuscaIngrediente');
     }
 
     function handlePerfil() {
@@ -20,6 +29,7 @@ export default function Receita( {route} ){
     return (
         <SafeAreaView style = {styles.tela}>
             <ScrollView>
+                <Text style = {styles.titulo}>Receita</Text>
                 <Text style = {styles.txt}>{response}</Text>
             </ScrollView>
             {/*Botões flutuantes*/}
@@ -29,6 +39,9 @@ export default function Receita( {route} ){
                 <Text style = {[styles.btnFlutuante, styles.btnPerfil]} onPress={handlePerfil}>
                     <Image style={styles.icn} source={require('../../assets/icon_perfil.png')} />
                 </Text>
+                <Text style = {[styles.btnFlutuante, styles.btnShare]} onPress={share}>
+                    <Image style={styles.icn} source={require('../../assets/share.png')} />
+                </Text>
         </SafeAreaView>
     ); 
 }
@@ -37,13 +50,20 @@ const styles = StyleSheet.create({
     tela:{
         height:'100%',
     },
+    titulo: {
+        fontWeight:'900',
+        color: '#E7320E',
+        fontSize: 40,
+        marginLeft: 50,
+        marginTop: 50,
+    },
     txt:{
         marginLeft: 50,
         marginRight: 50,
         fontSize: 16,
         color: '#5B5B5B',
         fontSize:16,
-        paddingBottom:50,
+        paddingBottom:100,
     },
     btnFlutuante:{
         position:'absolute',
@@ -65,11 +85,15 @@ const styles = StyleSheet.create({
         verticalAlign:'top',
     },
     btnBusca:{
-        backgroundColor:'#E7320E',
-        right:130,
+        backgroundColor:'#2c2c2c',
+        right:175,
     },
     btnPerfil:{
         backgroundColor:'#2c2c2c',
+        right:100,
+    },
+    btnShare:{
+        backgroundColor:'#E7320E',
         right:25,
     },
     icn:{

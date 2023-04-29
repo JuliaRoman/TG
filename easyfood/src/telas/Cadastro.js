@@ -12,10 +12,7 @@ export default function Cadastro( {route} ){
     const { passwordResponse } = route.params;
 
     // const [email, setEmail] = React.useState('');
-    // const [password, setPassword] = React.useState('');
-
-
-    
+    // const [password, setPassword] = React.useState('');  
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
@@ -43,7 +40,7 @@ export default function Cadastro( {route} ){
     const navigation = useNavigation();
 
     function handleBuscaIngrediente() {
-        navigation.navigate('BuscaNome');
+        navigation.navigate('BuscaIngrediente');
     }
 
     function handleInicial() {
@@ -56,7 +53,7 @@ export default function Cadastro( {route} ){
 
     const AlertCadastrou = () =>
     Alert.alert('Cadastro completo!', 'Aproveite nosso aplicativo!', [
-      {text: 'Vamos nessa!', onPress: () => handleBuscaIngrediente},
+      {text: 'Vamos nessa!', onPress: () => handleBuscaIngrediente()},
     ]);
   
     return (

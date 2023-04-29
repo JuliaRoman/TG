@@ -26,7 +26,7 @@ export default function Inicial(){
             console.log('Signed in!');
             const user = userCredential.user;
             console.log(user);
-            handleBuscaNome();
+            handleBuscaIngrediente();
         })
         .catch(error => {
             console.log(error);
@@ -62,10 +62,6 @@ export default function Inicial(){
         console.log("cadastro", email, password);
         navigation.navigate('Cadastro',{emailResponse: email, passwordResponse: password});
         console.log("passou pelo handleCadastro");
-    }
-
-    function handleBuscaNome() {
-        navigation.navigate('BuscaNome');
     }
 
     function handleBuscaIngrediente() {
