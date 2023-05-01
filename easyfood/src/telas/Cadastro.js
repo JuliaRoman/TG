@@ -6,19 +6,19 @@ import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './firebase-config';
 //import { set } from 'react-native-reanimated';
 
-export default function Cadastro( {route} ){
+export default function Cadastro( ){
 
-    const { emailResponse } = route.params;
-    const { passwordResponse } = route.params;
+    // const { emailResponse } = route.params;
+    // const { passwordResponse } = route.params;
 
-    // const [email, setEmail] = React.useState('');
-    // const [password, setPassword] = React.useState('');  
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');  
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
     const handleCreateAccount = () => {
-        createUserWithEmailAndPassword(auth, emailResponse, passwordResponse)
+        createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log('Account created')
             const user = userCredential.user;
@@ -26,13 +26,46 @@ export default function Cadastro( {route} ){
             AlertCadastrou();
         })
         .catch(error => {
+            console.log(error.code);
             console.log(error);
-            Alert.alert('Email incorreto!', 'Use um email válido!', [
-                {text: 'Voltar e corrigir', onPress: () => handleInicial()},
-              ]);
-            console.log(emailResponse);
+            console.log(error.message)
 
-            console.log(passwordResponse);
+            switch (error.code) {
+                case "auth/weak-password":
+                    Alert.alert('Senha fraca!', 'Insira uma senha com pelo menos 5 caractéres', [
+                        {text: 'Corrigir!'},
+                      ]);
+                    break;
+                
+                case "auth/invalid-email":
+                    Alert.alert('Email invalido!', 'Insira um email válido!', [
+                        {text: 'Corrigir!'},
+                      ]);
+                    break;
+
+                case "auth/email-already-in-use":
+                    Alert.alert('Email em uso!', 'Esse email ja está em uso! Utilize outro email ou volte e entre com o email.', [
+                        {text: 'Voltar', onPress: () => handleInicial(), style: 'cancel'},
+                        {text: 'utilizar outro email'}
+                      ]);
+                      break;
+                case "auth/missing-password":
+                    Alert.alert('Senha inválida!', 'Insira uma senha válida!', [
+                        {text: 'Corrigir!'},
+                      ]);
+                      break;
+
+                default:
+                    Alert.alert('Erro de conexão!', 'Verifique sua conexão com a internet!', [
+                        {text: 'Voltar'},
+                      ]);
+                      break;
+
+            }
+            
+            console.log(email);
+
+            console.log(password);
 
         })
     }
@@ -63,7 +96,6 @@ export default function Cadastro( {route} ){
                 <Text style = {styles.mensagem}>Já possui conta?</Text>
                 <Text style = {[styles.mensagem, styles.cadastrar]} onPress={handleInicial} >Acessar!</Text>
             </View>*/}
-            
             <Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
             <View style = {styles.restricoes}>
                 <View style = {styles.flex}>
@@ -78,12 +110,36 @@ export default function Cadastro( {route} ){
                     <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag}>Outro</Text>
                 </View>
             </View>
-            <Text style = {styles.button} onPress={handleCreateAccount} >Entrar</Text>
+
+
+            <TextInput style = {styles.input} placeholder="Insira seu nome" />
+            <TextInput onChangeText={(text) => setEmail(text)} style = {styles.input} placeholder="Insira seu e-mail" />
+            <TextInput onChangeText={(text) => setPassword(text)} secureTextEntry={true} style = {styles.input} placeholder="Insira uma senha" />
+
+            
+
+            <Text style = {styles.botao} onPress={handleCreateAccount}>Cadastrar</Text>
+            
+            {/* <Text style = {styles.button} onPress={handleCreateAccount} >Entrar</Text> */}
         </SafeAreaView>
     ); 
 }
 
 const styles = StyleSheet.create({
+    botao:{
+        backgroundColor: '#E7320E',
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: '900',
+        borderRadius: 50,
+        height: 50,
+        marginLeft: 50,
+        marginBottom: 5,
+        marginRight: 50,
+        textAlign:'center',
+        paddingTop: 12.5,
+        textTransform: 'uppercase',
+    },
     chamada: {
         fontWeight:'500',
         fontSize: 20,

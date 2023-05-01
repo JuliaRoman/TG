@@ -29,9 +29,34 @@ export default function Inicial(){
             handleBuscaIngrediente();
         })
         .catch(error => {
+            console.log(error.code);
+            console.log("teste");
             console.log(error);
-            alert(error.message);
-            Alert.alert(error.message);
+            switch (error.code) {
+                case 'auth/user-not-found':
+                    Alert.alert('Usuário não encontrado!', 'Não foi encontrado um usuário com essas credenciais',{text: 'Voltar'});
+                    break;
+                
+                case "auth/invalid-email":
+                    Alert.alert('Email invalido!', 'Insira um email válido!', [
+                        {text: 'Corrigir!'},
+                        ]);
+                    break;
+
+                case "auth/missing-password":
+                    Alert.alert('Senha inválida!', 'Insira uma senha válida!', [
+                        {text: 'Corrigir!'},
+                        ]);
+                    break;
+
+                default:
+                    Alert.alert('Erro de conexão!', 'Verifique sua conexão com a internet!', [
+                        {text: 'Voltar'},
+                      ]);
+                      break;
+
+            }
+
         })
     }
 
@@ -43,7 +68,7 @@ export default function Inicial(){
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      {text: 'OK', onPress: () => handleCadastro(emailCadastro, passwordCadastro)},
+      {text: 'OK', onPress: () => handleCadastro()},
     ]);
 
 
@@ -57,10 +82,8 @@ export default function Inicial(){
     }*/
     const navigation = useNavigation();
 
-    function handleCadastro(email,password) {
-        console.log(typeof(email))
-        console.log("cadastro", email, password);
-        navigation.navigate('Cadastro',{emailResponse: email, passwordResponse: password});
+    function handleCadastro() {
+        navigation.navigate('Cadastro' /*, {emailResponse: email, passwordResponse: password}*/);
         console.log("passou pelo handleCadastro");
     }
 
@@ -83,12 +106,8 @@ export default function Inicial(){
             />*/}
             {/*<Button title="Entrar" style = {styles.botao} onPress={() => navigation.navigate('')}/>*/}
             <Text style = {styles.botao} onPress={handleSignIn}>Entrar</Text>
-            <Text style = {styles.mensagem}>Ainda não possui conta?</Text>    
+            <Text style = {styles.mensagem}>Ainda não possui conta? <Text onPress={AlertCadastrar}>Cadastre-se aqui!</Text></Text>    
 
-            <TextInput style = {styles.input} placeholder="Insira seu nome" />
-            <TextInput onChangeText={(text) => setEmailCadastro(text)} style = {styles.input} placeholder="Insira seu e-mail" />
-            <TextInput onChangeText={(text) => setPasswordCadastro(text)} secureTextEntry={true} style = {styles.input} placeholder="Insira uma nova senha" />
-            <Text style = {styles.botao} onPress={AlertCadastrar}>Cadastrar</Text>
         </SafeAreaView>
     ); 
 }
