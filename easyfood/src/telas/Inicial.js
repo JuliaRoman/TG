@@ -45,7 +45,13 @@ export default function Inicial(){
 
                 case "auth/missing-password":
                     Alert.alert('Senha inválida!', 'Insira uma senha válida!', [
-                        {text: 'Corrigir!'},
+                        {text: 'Voltar!'},
+                        ]);
+                    break;
+                    
+                case "auth/wrong-password":
+                    Alert.alert('Senha incorreta!', 'A senha não corresponde ao usuário!', [
+                        {text: 'Voltar!'},
                         ]);
                     break;
 
