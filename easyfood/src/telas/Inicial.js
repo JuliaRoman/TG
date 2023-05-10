@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextInput, StyleSheet, SafeAreaView, Alert, Button, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, StyleSheet, SafeAreaView, Alert, Button, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,  } from 'firebase/auth';
 import { FirebaseError, initializeApp } from "firebase/app";
@@ -112,7 +112,12 @@ export default function Inicial(){
             />*/}
             {/*<Button title="Entrar" style = {styles.botao} onPress={() => navigation.navigate('')}/>*/}
             <Text style = {styles.botao} onPress={handleSignIn}>Entrar</Text>
-            <Text style = {styles.mensagem}>Ainda não possui conta? <Text onPress={AlertCadastrar}>Cadastre-se aqui!</Text></Text>    
+            <Text style = {styles.mensagem}>Ou</Text>
+            <TouchableOpacity> 
+                <Image style={styles.imgGoogle} source={require('../../assets/icon_google.png')} />
+                <Text style = {styles.mensagem}> Continue com o Google</Text>
+            </TouchableOpacity>
+            <Text style = {styles.mensagem}>Ainda não possui conta? <Text style = {styles.destaque} onPress={AlertCadastrar}>Cadastre-se aqui!</Text></Text>    
 
         </SafeAreaView>
     ); 
@@ -132,6 +137,15 @@ const styles = StyleSheet.create({
         fontSize: 40,
         marginLeft: 50,
         marginBottom: 70,
+    },
+    destaque: {
+        fontWeight:'900',
+        color: '#E7320E',
+    },
+    imgGoogle:{
+        alignSelf:'center',
+        maxWidth: 310,
+        height: 20,
     },
     input:{
         borderWidth:1,
