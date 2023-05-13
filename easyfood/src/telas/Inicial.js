@@ -113,8 +113,8 @@ export default function Inicial(){
             {/*<Button title="Entrar" style = {styles.botao} onPress={() => navigation.navigate('')}/>*/}
             <Text style = {styles.botao} onPress={handleSignIn}>Entrar</Text>
             <Text style = {styles.mensagem}>Ou</Text>
-            <TouchableOpacity> 
-                <Image style={styles.imgGoogle} source={require('../../assets/icon_google.png')} />
+            <TouchableOpacity style={[styles.flex, styles.btnGoogle]}> 
+                <Image style = {styles.imgGoogle} source={require('../../assets/icon_google.png')} />
                 <Text style = {styles.mensagem}> Continue com o Google</Text>
             </TouchableOpacity>
             <Text style = {styles.mensagem}>Ainda não possui conta? <Text style = {styles.destaque} onPress={AlertCadastrar}>Cadastre-se aqui!</Text></Text>    
@@ -144,8 +144,20 @@ const styles = StyleSheet.create({
     },
     imgGoogle:{
         alignSelf:'center',
-        maxWidth: 310,
-        height: 20,
+        maxWidth: 25,
+        height: 25,
+    },
+    txtGoogle:{
+        color: '#3E3E3E',
+        fontSize: 14,
+        fontWeight: '500',
+        textAlign:'center',
+        paddingLeft:20,
+    },
+    btnGoogle:{
+        borderWidth:1,
+        borderRadius: 50,
+        borderColor: '#5B5B5B',
     },
     input:{
         borderWidth:1,
@@ -188,6 +200,12 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginRight: 50,
         textAlign:'center',
+    },
+    flex:{
+        flexDirection: 'row',
+        justifyContent:'center',
+        marginLeft:50,
+        marginRight: 50,
     },
 });
 
