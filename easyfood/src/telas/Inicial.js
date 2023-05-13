@@ -115,7 +115,7 @@ export default function Inicial(){
             <Text style = {styles.mensagem}>Ou</Text>
             <TouchableOpacity style={[styles.flex, styles.btnGoogle]}> 
                 <Image style = {styles.imgGoogle} source={require('../../assets/icon_google.png')} />
-                <Text style = {styles.mensagem}> Continue com o Google</Text>
+                <Text style = {styles.txtGoogle}> Continue com o Google</Text>
             </TouchableOpacity>
             <Text style = {styles.mensagem}>Ainda não possui conta? <Text style = {styles.destaque} onPress={AlertCadastrar}>Cadastre-se aqui!</Text></Text>    
 
@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     btnGoogle:{
         borderWidth:1,
         borderRadius: 50,
+        height: 50,
         borderColor: '#5B5B5B',
     },
     input:{
