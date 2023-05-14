@@ -1,10 +1,11 @@
-import React from 'react';
-import { Text, TextInput, StyleSheet, SafeAreaView, View, Alert } from 'react-native';
+import React, {useState} from 'react';
+import { Text, TextInput, StyleSheet, SafeAreaView, View, Alert, TouchableOpacity, Modal, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './firebase-config';
 //import { set } from 'react-native-reanimated';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Cadastro( ){
 
@@ -80,8 +81,24 @@ export default function Cadastro( ){
         navigation.navigate('Inicial');
     }
 
-    function adicionarTag(){
-        Alert.alert('Categoria selecionada');
+    function adicionarTag(tag){
+        console.log(tag);
+    }
+
+    const[restricao, setRestricao] = useState("");
+    const[visibilidade, setVisilidade] = useState(false);
+
+    async function salvaRestricao(){
+        const novaRestricao = {
+            id:"1",
+            titulo:restricao,
+        }
+        await AsyncStorage.setItem(novaRestricao.id, restricao.titulo)
+        mostraRestricao();
+    }
+
+    async function mostraRestricao(){
+        console.log(await AsyncStorage.getItem("1"));
     }
 
     const AlertCadastrou = () =>
@@ -92,34 +109,36 @@ export default function Cadastro( ){
     return (
         
         <SafeAreaView>
-            {/*<View style = {styles.voltar}>
+            <View style = {styles.voltar}>
                 <Text style = {styles.mensagem}>Já possui conta?</Text>
                 <Text style = {[styles.mensagem, styles.cadastrar]} onPress={handleInicial} >Acessar!</Text>
-            </View>*/}
-            <Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
-            <View style = {styles.restricoes}>
-                <View style = {styles.flex}>
-                    <Text style = {styles.tags} onPress={adicionarTag}>Intolerância a glúten</Text>
-                    <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag}>Vegetariano</Text>
-                </View>
-                <View style = {styles.flex}>
-                    <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag}>Vegano</Text>
-                    <Text style = {styles.tags} onPress={adicionarTag}>Intolerância a lactose</Text>
-                </View>
-                <View style = {styles.flex}>
-                    <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag}>Outro</Text>
-                </View>
             </View>
-
-
             <TextInput style = {styles.input} placeholder="Insira seu nome" />
             <TextInput onChangeText={(text) => setEmail(text)} style = {styles.input} placeholder="Insira seu e-mail" />
             <TextInput onChangeText={(text) => setPassword(text)} secureTextEntry={true} style = {styles.input} placeholder="Insira uma senha" />
-
-            
-
+            <Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
+            <View style = {styles.restricoes}>
+                <View style = {styles.flex}>
+                    <TouchableOpacity onPress={adicionarTag("Intolerância a glúten")}><Text style = {styles.tags}>Intolerância a glúten</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={adicionarTag("Vegetariano")}><Text style = {[styles.tags, styles.tagMenor]}>Vegetariano</Text></TouchableOpacity>
+                </View>
+                <View style = {styles.flex}>
+                    <TouchableOpacity onPress={adicionarTag("Vegano")}><Text style = {[styles.tags, styles.tagMenor]} >Vegano</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={adicionarTag("Intolerância a lactose")}><Text style = {styles.tags}>Intolerância a lactose</Text></TouchableOpacity>
+                </View>
+                <View style = {styles.flex}>
+                    <TouchableOpacity onPress={() => setVisilidade(true)}><Text style = {[styles.tags, styles.tagMenor]}>Outro</Text></TouchableOpacity>
+                </View>
+            </View>
+        
+            <Modal animationType="slide" transparent={true} visible={visibilidade} onRequestClose={() => {setVisilidade(false)}}>
+                <View>
+                    <Image style={styles.imgTitulo} source={require('../../assets/icon_nova_restricao.png')} />
+                    <TextInput style = {styles.input} placeholder="Insira restrição ou dieta" />
+                    <TouchableOpacity onPress={() => salvaRestricao()}><Text style = {styles.txtBotao}>ADICIONAR</Text></TouchableOpacity>
+                </View>
+            </Modal>
             <Text style = {styles.botao} onPress={handleCreateAccount}>Cadastrar</Text>
-            
             {/* <Text style = {styles.button} onPress={handleCreateAccount} >Entrar</Text> */}
         </SafeAreaView>
     ); 

@@ -1,5 +1,5 @@
 import React, {useState, Component} from 'react';
-import { Image, TextInput, StyleSheet, SafeAreaView, Text } from 'react-native';
+import { Image, TextInput, StyleSheet, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
@@ -43,11 +43,23 @@ export default function BuscaNome(){
         navigation.navigate('Receita', {response: finalResponse});
     }
 
+    function handleBuscaIngrediente(){
+      navigation.navigate('BuscaIngrediente');
+    }
+
+
     return (
         <SafeAreaView>
             <Image style={styles.imgTitulo} source={require('../../assets/img_busca_nome.png')} />
             <TextInput style = {styles.input} placeholder="Insira o nome da receita" onChangeText={(text) => setInput(text)} />
             <Text style = {styles.button} onPress={recipeResponse}>Buscar</Text>
+            <TouchableOpacity style = {styles.voltar} onPress={handleBuscaIngrediente} >
+              <View style = {styles.flex}>
+                <Image style={styles.seta} source={require('../../assets/arrow_left.png')} />
+                <View><Text style = {styles.mensagem}>Mudou de ideia?</Text> <Text style = {[styles.mensagem, styles.destaque]} >Busque sua receita por ingredientes!</Text></View>
+              </View>
+              
+            </TouchableOpacity>
         </SafeAreaView>
     ); 
 }
@@ -64,6 +76,20 @@ const styles = StyleSheet.create({
         color: '#5B5B5B',
         borderRadius: 50,
         height: 50,
+    },
+    seta:{
+      width:16,
+      height:16,
+      marginRight:20,
+    },
+    voltar:{
+      marginLeft:50,
+      marginRight: 50,
+    },
+    flex:{
+      flexDirection: 'row',
+      textAlign:'left',
+      marginTop:75,
     },
     imgTitulo:{
         alignSelf:'center',
@@ -88,5 +114,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textTransform: 'uppercase',
     },
+    destaque:{
+      color:'#E7320E',
+      fontWeight: 700,
+    }
 });
 

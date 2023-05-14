@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
             height: 4,
         },
         textAlign:'center',
-        verticalAlign:'top',
+        textVerticalAlign:'top',
     },
     btnBusca:{
         backgroundColor:'#2c2c2c',
