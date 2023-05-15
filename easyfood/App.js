@@ -8,6 +8,9 @@ import BuscaNome from './src/telas/BuscaNome.js';
 import Receita from './src/telas/Receita.js';
 import BuscaIngrediente from './src/telas/BuscaIngrediente.js';
 
+import 'expo-dev-client';
+
+
 const Stack = createStackNavigator();
 
 export default function App() {

@@ -5,6 +5,9 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,  }
 import { FirebaseError, initializeApp } from "firebase/app";
 import { firebaseConfig } from './firebase-config';
 
+import 'expo-dev-client';
+
+
 
 //import CheckBox from './src/componentes/Checkbox';
 

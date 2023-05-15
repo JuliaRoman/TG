@@ -21,10 +21,10 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff",
-        "package": "com.tg.easyfood",
-        "versionCode": 1
-      }
+        "backgroundColor": "#ffffff"
+
+      },
+      "package": "com.gargel.easyfood"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,7 +32,7 @@
     "description": "",
     "extra": {
       "eas": {
-        "projectId": "352153ba-a2dd-4e26-80a1-6be1372d1bae"
+        "projectId": "87c526db-2ff4-4be0-85e3-e31baa6d3b20"
       }
     }
   }
