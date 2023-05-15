@@ -10,41 +10,54 @@ export default function BuscaIngrediente(){
     const navigation = useNavigation();
     const [ingrediente, setIngrediente] = useState("");
     const [lista, setLista] = useState([]);
-    const [listaFinal, setListaFinal] = useState("");
+    
 
     const recipeResponse = async () => {
-        try {
-          const res = await axios.post(
-            "https://api.openai.com/v1/engines/text-davinci-003/completions",
-            {
-              prompt: "me dê apenas uma receita existente (em formato de receita), descreva o sabor e apresente sua instrução com os ingredientes em [ "+ listaFinal + " ].\n Caso seja inserido algo que possa ferir os direitos humanos, diga que isso é proíbido. \n Se não foi inserido um ingrediente ou foi inserido um texto sem nexo com o assunto, então avise que não foram passados ingredientes validos e não dê uma receita.\nCaso não tenha nenhuma receita já existente que use apenas esses ingredientes como principal, indique outra receita com ingredientes similares ou deixe claro que não existe uma receita e sobre a questão disso na saúde.",
-              temperature: 0.3,
-              max_tokens: 600,
-              top_p: 1,
-              frequency_penalty: 0,
-              presence_penalty: 0,
-            },
-            {
-              headers: {
-                Authorization: `Bearer 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`,
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          console.log("O valor input foi: " + listaFinal + " com o tipo :" + typeof(listaFinal));
-          console.log("A resposta: " + res.data.choices[0].text + "\n e o tipo é: " + typeof(res.data.choices[0].text));
-          handleReceita(res.data.choices[0].text);
-        } catch (err) {
-          console.error(err);
+        var finallist = lista.join(', ');
+        if( finallist != "") {
+            try {
+                const res = await axios.post(
+                  "https://api.openai.com/v1/engines/text-davinci-003/completions",
+                  {
+                    prompt: "me dê apenas uma receita existente (em formato de receita), descreva o sabor e apresente sua instrução com os ingredientes em  "+ finallist + " .\n Caso seja inserido algo que possa ferir os direitos humanos, diga que isso é proíbido. \n Se não foi inserido um ingrediente ou foi inserido um texto sem nexo com o assunto, então avise que não foram passados ingredientes validos e não dê uma receita.\nCaso não tenha nenhuma receita já existente que use apenas esses ingredientes como principal, indique outra receita com ingredientes similares ou deixe claro que não existe uma receita e sobre a questão disso na saúde.",
+                    temperature: 0.3,
+                    max_tokens: 600,
+                    top_p: 1,
+                    frequency_penalty: 0,
+                    presence_penalty: 0,
+                  },
+                  {
+                    headers: {
+                      Authorization: `Bearer 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`,
+                      "Content-Type": "application/json",
+                    },
+                  }
+                );
+                
+                console.log("O valor input foi: '" + finallist + "' com o tipo :" + typeof(finallist));
+                console.log(lista);
+                console.log("A resposta: " + res.data.choices[0].text + "\n e o tipo é: " + typeof(res.data.choices[0].text));
+                handleReceita(res.data.choices[0].text);
+              } catch (err) {
+                console.error(err);
+              }
+        }else if(finallist == ""){
+            Alert.alert('Lista Vazia', 'Insira algum ingrediente!', [
+                {text: 'Voltar!'},
+            ]);
+            console.log("lista de ingredientes vazia");
+            
         }
-      };
+        
+    };
 
-    const adicionarIngrediente = () => {
+    const adicionarIngrediente = async () => {
         if(ingrediente==''){
             Alert.alert("Campo vazio!");
         }else{
-            setLista(lista.concat(ingrediente));
+            await setLista(lista.concat(ingrediente));
             setIngrediente('');
+            
         }
     }
 
@@ -52,14 +65,14 @@ export default function BuscaIngrediente(){
         setLista(lista.filter(setLista, lista.indexOf(ingrediente)));
     }
 
-    function handleReceita(finalResponse) {
-        setListaFinal(lista.join(', '));
+    async function handleReceita(finalResponse) {
         console.log("\n\ntransportando.... : " + finalResponse);
         navigation.navigate('Receita', {response: finalResponse});
     }
 
     function handleBuscaNome() {
         navigation.navigate('BuscaNome');
+
     }
 
     const handleRenderIng = ({item}) => <Text style = {styles.tags}>{item} {/*<TouchableWithoutFeedback onPress={removerIngrediente}><Text>x</Text></TouchableWithoutFeedback>*/}</Text>
