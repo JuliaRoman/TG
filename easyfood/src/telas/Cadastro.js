@@ -80,25 +80,7 @@ export default function Cadastro( ){
         navigation.navigate('Inicial');
     }
 
-    function adicionarTag(tag){
-        console.log(tag);
-    }
-
-    const[restricao, setRestricao] = useState("");
-    const[visibilidade, setVisilidade] = useState(false);
-
-    async function salvaRestricao(){
-        const novaRestricao = {
-            id:"1",
-            titulo:restricao,
-        }
-        await AsyncStorage.setItem(novaRestricao.id, restricao.titulo)
-        mostraRestricao();
-    }
-
-    async function mostraRestricao(){
-        console.log(await AsyncStorage.getItem("1"));
-    }
+    
 
     const AlertCadastrou = () =>
     Alert.alert('Cadastro completo!', 'Aproveite nosso aplicativo!', [
@@ -167,33 +149,6 @@ const styles = StyleSheet.create({
     cadastrar:{
         color: '#E7320E',
         fontSize: 18,
-        marginBottom: 75,
-    },
-    flex:{
-        flexDirection: 'row',
-        justifyContent:'center',
-    },
-    restricoes:{
-        marginBottom: 20,
-        marginLeft: 50,
-        marginRight: 50,
-    },
-    tags: {
-        backgroundColor: '#6B6B6B',
-        color: '#FFFFFF',
-        fontSize: 16,
-        borderRadius: 50,
-        height: 32,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 200,
-        marginBottom: 5,
-        marginRight: 5,
-        textAlign:'center',
-        paddingTop:2.5,
-    },
-    tagMenor:{
-        width:135,
     },
     button: {
         backgroundColor: '#E7320E',
