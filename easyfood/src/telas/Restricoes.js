@@ -1,35 +1,70 @@
 import React, {useState} from "react";
-
-import { Text, TextInput, StyleSheet, SafeAreaView, View, Alert, TouchableOpacity, Modal, Image } from 'react-native';
+import { Text, TextInput, StyleSheet, SafeAreaView, View, Alert, TouchableOpacity, Modal, Image, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Restricoes(){
 
+    const navigation = useNavigation();
+
+    function handleBusca() {
+        navigation.navigate('BuscaIngrediente');
+    }
+
     const[restricao, setRestricao] = useState("");
+    const[listaRestricoes, setListaRestricoes] = useState("");
+    
     const[visibilidade, setVisilidade] = useState(false);
 
-    
-    
-
-    async function salvaRestricao(){
-        const novaRestricao = {
-            id:"1",
-            titulo:restricao,
-        }
-        setVisilidade(false);
-        
-        await AsyncStorage.setItem(novaRestricao.id, restricao.titulo);
-
-        mostraRestricao();
-    }
+    const compRestricao = ({item}) => <Text style = {[styles.tags, styles.listaItem]}>{item}</Text>
 
     async function mostraRestricao(){
         console.log(await AsyncStorage.getItem("1"));
+        const tdsChaves = await AsyncStorage.getAllKeys();
+        const tdsRestricoes = await AsyncStorage.multiGet(tdsChaves);
+        setListaRestricoes(tdsRestricoes);
+        console.log(listaRestricoes);
     }
 
-    function adicionarTag(tag){
-        console.log(tag);
+    async function salvarRestricao(){
+        const novoId = await gerarId();
+        
+        const novaRestricao = {
+            id:novoId.toString(),
+            titulo:restricao,
+        }
+
+        if(restricao==""){
+            console.log("Vazio");
+        }else{
+            await AsyncStorage.setItem(novaRestricao.id, novaRestricao.titulo);
+        }    
+    
+        setRestricao("");
+        
+        await AsyncStorage.removeItem("EXPO_CONSTANTS_INSTALLATION_ID");
+        mostraRestricao();
+        //await AsyncStorage.clear(); //Limpar todo Async
+        handleBusca();
+    }
+
+    function adicionarNovaRestricao(tag){
+        setRestricao(tag);
+        console.log(restricao);
+
+        salvarRestricao();
+
+        setVisilidade(false);
+    }
+
+    async function gerarId(){
+        const tdsChaves = await AsyncStorage.getAllKeys();
+        
+        if(tdsChaves <= 0 ){
+            return 1;
+        }
+        return tdsChaves.length + 2;
     }
 
     return(
@@ -37,23 +72,32 @@ export default function Restricoes(){
             <Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
                 <View style = {styles.restricoes}>
                     <View style = {styles.flex}>
-                        <TouchableOpacity onPress={adicionarTag("Intolerância a glúten")}><Text style = {styles.tags}>Intolerância a glúten</Text></TouchableOpacity>
-                        <TouchableOpacity onPress={adicionarTag("Vegetariano")}><Text style = {[styles.tags, styles.tagMenor]}>Vegetariano</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => adicionarNovaRestricao("Intolerância a glúten")}><Text style = {styles.tags}>Intolerância a glúten</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => adicionarNovaRestricao("Vegetariano")}><Text style = {[styles.tags, styles.tagMenor]}>Vegetariano</Text></TouchableOpacity>
                     </View>
                     <View style = {styles.flex}>
-                        <TouchableOpacity onPress={adicionarTag("Vegano")}><Text style = {[styles.tags, styles.tagMenor]} >Vegano</Text></TouchableOpacity>
-                        <TouchableOpacity onPress={adicionarTag("Intolerância a lactose")}><Text style = {styles.tags}>Intolerância a lactose</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => adicionarNovaRestricao("Vegano")}><Text style = {[styles.tags, styles.tagMenor]} >Vegano</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => adicionarNovaRestricao("Intolerância a lactose")}><Text style = {styles.tags}>Intolerância a lactose</Text></TouchableOpacity>
                     </View>
                     <View style = {styles.flex}>
                         <TouchableOpacity onPress={() => setVisilidade(true)}><Text style = {[styles.tags, styles.tagMenor]}>Outro</Text></TouchableOpacity>
                     </View>
+                    
+                    <Text style = {styles.chamada}>Restrições adicionadas:</Text>
+                    <View style={styles.lista}>
+                        <FlatList style={styles.lista} data={listaRestricoes} renderItem={compRestricao} keyExtractor={listaRestricoes => listaRestricoes[0]}></FlatList>
+                    </View>
+
+                    <TouchableOpacity style = {[styles.botao, styles.btnPrincipal]} onPress={() => salvarRestricao()}>
+                        <Text style = {styles.txtBotao}>FINALIZAR</Text>
+                    </TouchableOpacity>
                 </View>
-            
+
                 <Modal animationType="slide" transparent={true} visible={visibilidade} onRequestClose={() => {setVisilidade(false)}}>
                     <View style = {styles.modal}>
                         <Image style={styles.imgTitulo} source={require('../../assets/icon_nova_restricao.png')} />
-                        <TextInput style = {styles.input} placeholder="Insira restrição ou dieta" />
-                        <TouchableOpacity style = {styles.botao} onPress={() => salvaRestricao()}>
+                        <TextInput style = {styles.input} onChangeText={(restricao)=>setRestricao(restricao)} placeholder="Insira restrição ou dieta" />
+                        <TouchableOpacity style = {styles.botao} onPress={() => adicionarNovaRestricao(restricao)}>
                             <Text style = {styles.txtBotao}>ADICIONAR</Text>
                         </TouchableOpacity>
                     </View>
@@ -95,6 +139,10 @@ const styles = StyleSheet.create({
         fontWeight: '900',
         textAlign: 'center',
     },
+    btnPrincipal:{
+        alignSelf:'center',
+        marginTop:50,
+    },
     tags: {
         backgroundColor: '#6B6B6B',
         color: '#FFFFFF',
@@ -116,6 +164,21 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginLeft: 50,
         marginRight: 50,
+    },
+    listaItem:{
+        backgroundColor:'white',
+        shadowColor: "#000",
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 3,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        color:'#333',
+    },
+    lista:{
+        alignSelf:'center',
     },
     input:{
         borderWidth:1,

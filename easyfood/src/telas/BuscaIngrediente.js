@@ -3,6 +3,7 @@ import { Image, TextInput, StyleSheet, SafeAreaView, Alert, Text, View, FlatList
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { concat } from 'async';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function BuscaIngrediente(){
 
