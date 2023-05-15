@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         textAlign:'center',
         paddingLeft:20,
+        textAlignVertical:'center',
     },
     btnGoogle:{
         borderWidth:1,

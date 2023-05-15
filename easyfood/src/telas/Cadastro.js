@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import { Text, TextInput, StyleSheet, SafeAreaView, View, Alert, TouchableOpacity, Modal, Image } from 'react-native';
+import { Text, TextInput, StyleSheet, SafeAreaView, View, Alert, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './firebase-config';
 //import { set } from 'react-native-reanimated';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Cadastro( ){
 
@@ -73,8 +72,8 @@ export default function Cadastro( ){
 
     const navigation = useNavigation();
 
-    function handleBuscaIngrediente() {
-        navigation.navigate('BuscaIngrediente');
+    function handleRestricoes() {
+        navigation.navigate('Restricoes');
     }
 
     function handleInicial() {
@@ -103,7 +102,7 @@ export default function Cadastro( ){
 
     const AlertCadastrou = () =>
     Alert.alert('Cadastro completo!', 'Aproveite nosso aplicativo!', [
-      {text: 'Vamos nessa!', onPress: () => handleBuscaIngrediente()},
+      {text: 'Vamos nessa!', onPress: () => handleRestricoes()},
     ]);
   
     return (
@@ -116,28 +115,7 @@ export default function Cadastro( ){
             <TextInput style = {styles.input} placeholder="Insira seu nome" />
             <TextInput onChangeText={(text) => setEmail(text)} style = {styles.input} placeholder="Insira seu e-mail" />
             <TextInput onChangeText={(text) => setPassword(text)} secureTextEntry={true} style = {styles.input} placeholder="Insira uma senha" />
-            <Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
-            <View style = {styles.restricoes}>
-                <View style = {styles.flex}>
-                    <TouchableOpacity onPress={adicionarTag("Intolerância a glúten")}><Text style = {styles.tags}>Intolerância a glúten</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={adicionarTag("Vegetariano")}><Text style = {[styles.tags, styles.tagMenor]}>Vegetariano</Text></TouchableOpacity>
-                </View>
-                <View style = {styles.flex}>
-                    <TouchableOpacity onPress={adicionarTag("Vegano")}><Text style = {[styles.tags, styles.tagMenor]} >Vegano</Text></TouchableOpacity>
-                    <TouchableOpacity onPress={adicionarTag("Intolerância a lactose")}><Text style = {styles.tags}>Intolerância a lactose</Text></TouchableOpacity>
-                </View>
-                <View style = {styles.flex}>
-                    <TouchableOpacity onPress={() => setVisilidade(true)}><Text style = {[styles.tags, styles.tagMenor]}>Outro</Text></TouchableOpacity>
-                </View>
-            </View>
-        
-            <Modal animationType="slide" transparent={true} visible={visibilidade} onRequestClose={() => {setVisilidade(false)}}>
-                <View style = {styles.modal}>
-                    <Image style={styles.imgTitulo} source={require('../../assets/icon_nova_restricao.png')} />
-                    <TextInput style = {styles.input} placeholder="Insira restrição ou dieta" />
-                    <TouchableOpacity style = {styles.botao} onPress={() => salvaRestricao()}><Text style = {styles.txtBotao}>ADICIONAR</Text></TouchableOpacity>
-                </View>
-            </Modal>
+
             <Text style = {styles.botao} onPress={handleCreateAccount}>Cadastrar</Text>
             {/* <Text style = {styles.button} onPress={handleCreateAccount} >Entrar</Text> */}
         </SafeAreaView>
@@ -145,10 +123,6 @@ export default function Cadastro( ){
 }
 
 const styles = StyleSheet.create({
-    modal:{
-        backgroundColor:'white',
-        alignItems:'center',
-    },
     botao:{
         backgroundColor: '#E7320E',
         color: '#FFFFFF',
@@ -197,7 +171,6 @@ const styles = StyleSheet.create({
     flex:{
         flexDirection: 'row',
         justifyContent:'center',
-
     },
     restricoes:{
         marginBottom: 20,
