@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     cadastrar:{
         color: '#E7320E',
         fontSize: 18,
+        marginBottom: 75,
     },
     flex:{
         flexDirection: 'row',
