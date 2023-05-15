@@ -93,8 +93,11 @@ export default function Restricoes(){
                     </TouchableOpacity>
                 </View>
 
-                <Modal animationType="slide" transparent={true} visible={visibilidade} onRequestClose={() => {setVisilidade(false)}}>
+                <Modal style = {styles.fundoModal} animationType="slide" transparent={true} visible={visibilidade} onRequestClose={() => {setVisilidade(false)}}>
                     <View style = {styles.modal}>
+                        <TouchableOpacity style = {styles.btnFechar} onPress={() => setVisilidade(false)}>
+                            <Text style = {styles.txtFechar}>x</Text>
+                        </TouchableOpacity>
                         <Image style={styles.imgTitulo} source={require('../../assets/icon_nova_restricao.png')} />
                         <TextInput style = {styles.input} onChangeText={(restricao)=>setRestricao(restricao)} placeholder="Insira restrição ou dieta" />
                         <TouchableOpacity style = {styles.botao} onPress={() => adicionarNovaRestricao(restricao)}>
@@ -115,6 +118,9 @@ const styles = StyleSheet.create({
         borderRadius:15,
         marginTop: '50%',
         padding:25,
+    },
+    fundoModal:{
+        backgroundColor:'#333',
     },
     flex:{
         flexDirection: 'row',
@@ -142,6 +148,15 @@ const styles = StyleSheet.create({
     btnPrincipal:{
         alignSelf:'center',
         marginTop:50,
+    },
+    btnFechar:{
+        position:'absolute',
+        right:25,
+        top:15,
+    },
+    txtFechar:{
+        fontSize:25,
+        fontWeight:600,
     },
     tags: {
         backgroundColor: '#6B6B6B',
