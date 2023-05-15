@@ -80,10 +80,6 @@ export default function Cadastro( ){
         navigation.navigate('Inicial');
     }
 
-    function adicionarTag(tag){
-        console.log(tag);
-    }
-
     const[restricao, setRestricao] = useState("");
     const[visibilidade, setVisilidade] = useState(false);
 
@@ -167,6 +163,7 @@ const styles = StyleSheet.create({
     cadastrar:{
         color: '#E7320E',
         fontSize: 18,
+        marginBottom:75,
     },
     flex:{
         flexDirection: 'row',

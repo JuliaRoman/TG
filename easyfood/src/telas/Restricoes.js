@@ -39,4 +39,18 @@ const styles = StyleSheet.create({
         backgroundColor:'white',
         alignItems:'center',
     },
+    botao:{
+        backgroundColor: '#E7320E',
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: '900',
+        borderRadius: 50,
+        height: 50,
+        marginLeft: 50,
+        marginBottom: 5,
+        marginRight: 50,
+        textAlign:'center',
+        paddingTop: 12.5,
+        textTransform: 'uppercase',
+    },
 });
