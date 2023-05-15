@@ -132,10 +132,10 @@ export default function Cadastro( ){
             </View>
         
             <Modal animationType="slide" transparent={true} visible={visibilidade} onRequestClose={() => {setVisilidade(false)}}>
-                <View>
+                <View style = {styles.modal}>
                     <Image style={styles.imgTitulo} source={require('../../assets/icon_nova_restricao.png')} />
                     <TextInput style = {styles.input} placeholder="Insira restrição ou dieta" />
-                    <TouchableOpacity onPress={() => salvaRestricao()}><Text style = {styles.txtBotao}>ADICIONAR</Text></TouchableOpacity>
+                    <TouchableOpacity style = {styles.botao} onPress={() => salvaRestricao()}><Text style = {styles.txtBotao}>ADICIONAR</Text></TouchableOpacity>
                 </View>
             </Modal>
             <Text style = {styles.botao} onPress={handleCreateAccount}>Cadastrar</Text>
@@ -145,6 +145,10 @@ export default function Cadastro( ){
 }
 
 const styles = StyleSheet.create({
+    modal:{
+        backgroundColor:'white',
+        alignItems:'center',
+    },
     botao:{
         backgroundColor: '#E7320E',
         color: '#FFFFFF',
@@ -193,6 +197,7 @@ const styles = StyleSheet.create({
     flex:{
         flexDirection: 'row',
         justifyContent:'center',
+
     },
     restricoes:{
         marginBottom: 20,
