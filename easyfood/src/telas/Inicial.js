@@ -4,6 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,  } from 'firebase/auth';
 import { FirebaseError, initializeApp } from "firebase/app";
 import { firebaseConfig } from './firebase-config';
+import auth  from '@react-native-firebase/auth';
+// import {
+//     GoogleSignin,
+//     GoogleSigninButton,
+//     statusCodes,
+//   } from '@react-native-google-signin/google-signin';
+
 
 import 'expo-dev-client';
 
@@ -22,6 +29,27 @@ export default function Inicial(){
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    googleLogin = async () => {
+        try {
+          const result = await Expo.Google.logInAsync({
+            androidClientId: "368031575868-es4c6i7m07qluetbv1es96l2keqvec01.apps.googleusercontent.com",
+            //iosClientId: YOUR_CLIENT_ID_HERE,  <-- if you use iOS
+            scopes: ["profile", "email"]
+  
+          })
+          if (result.type === "success") {
+            const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken);
+               firebase.auth().signInAndRetrieveDataWithCredential(credential).then(function(result){
+                 console.log(result);
+               });
+       this.props.navigation.navigate('Where you want to go');
+     } else {
+       console.log("cancelled")
+     }
+        } catch (e) {
+          console.log("error", e)
+        }
+    }
 
     const handleSignIn = () => {
         signInWithEmailAndPassword(auth, email, password)

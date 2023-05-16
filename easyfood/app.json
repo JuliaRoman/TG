@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Easy Food",
+    "plugins": ["@react-native-google-signin/google-signin"],
     "slug": "easyfood",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +25,8 @@
         "backgroundColor": "#ffffff"
 
       },
-      "package": "com.gargel.easyfood"
+      "package": "com.gargel.easyfood",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

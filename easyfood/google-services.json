@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "368031575868",
+    "firebase_url": "https://react-native-recipes-ccd06-default-rtdb.firebaseio.com",
+    "project_id": "react-native-recipes-ccd06",
+    "storage_bucket": "react-native-recipes-ccd06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368031575868:android:96d9e26eaac1603f947839",
+        "android_client_info": {
+          "package_name": "com.gargel.easyfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368031575868-84s446ittj9m4bso4samdj3oq0dlsvps.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gargel.easyfood",
+            "certificate_hash": "ff405e4c8c40b35049cbe017535d90a123575f30"
+          }
+        },
+        {
+          "client_id": "368031575868-rl0ep3gqac3cb4m9h2dl2kvv398tdtn5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gargel.easyfood",
+            "certificate_hash": "9cb727237d2f25e2b4bd5762cd417bcfa9bd1659"
+          }
+        },
+        {
+          "client_id": "368031575868-es4c6i7m07qluetbv1es96l2keqvec01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzp2J9CttwAQQqF6g16nQPkTK7-QTzpMw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368031575868-es4c6i7m07qluetbv1es96l2keqvec01.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
