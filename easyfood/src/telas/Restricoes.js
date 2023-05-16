@@ -30,14 +30,14 @@ export default function Restricoes({route}){
         const {usuario} = route.params;
         const novaRestricao = {
             id:novoId.toString(),
-            iduser:usuario,
+            //iduser:usuario,
             titulo:restricao,
         }
 
         if(restricao==""){
             console.log("Vazio");
         }else{
-           await AsyncStorage.setItem(novaRestricao.iduser, novaRestricao.titulo);
+           await AsyncStorage.setItem(novaRestricao.id, novaRestricao.titulo);
         }    
     
         //setRestricao("");
@@ -45,7 +45,6 @@ export default function Restricoes({route}){
         //await AsyncStorage.removeItem("EXPO_CONSTANTS_INSTALLATION_ID");
         mostraRestricao();
         //await AsyncStorage.clear(); //Limpar todo Async
-        //handleBusca();
     }
 
     function adicionarNovaRestricao(tag){
@@ -84,7 +83,7 @@ export default function Restricoes({route}){
                        <FlatList style={styles.lista} data={listaRestricoes} renderItem={(listaRestricoes) => <TagRestricao {...listaRestricoes}/>} keyExtractor={listaRestricoes => listaRestricoes[0]}></FlatList>
                     </View>
 
-                    <TouchableOpacity style = {[styles.botao, styles.btnPrincipal]} onPress={() => salvarRestricao()}>
+                    <TouchableOpacity style = {[styles.botao, styles.btnPrincipal]} onPress={() => handleBusca()}>
                         <Text style = {styles.txtBotao}>FINALIZAR</Text>
                     </TouchableOpacity>
                 </View>
@@ -95,18 +94,6 @@ export default function Restricoes({route}){
 }
 
 const styles = StyleSheet.create({
-    modal:{
-        backgroundColor:'white',
-        alignItems:'center',
-        maxWidth:'75%',
-        alignSelf:'center',
-        borderRadius:15,
-        marginTop: '50%',
-        padding:25,
-    },
-    fundoModal:{
-        backgroundColor:'#333',
-    },
     buttonPlus:{
         width:50,
         height:50,
