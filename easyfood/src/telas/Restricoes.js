@@ -26,20 +26,21 @@ export default function Restricoes({route}){
     }
 
     async function salvarRestricao(){
-        //const novoId = await gerarId();
+        const novoId = await gerarId();
         const {usuario} = route.params;
         const novaRestricao = {
-            id:usuario,
+            id:novoId.toString(),
+            iduser:usuario,
             titulo:restricao,
         }
 
         if(restricao==""){
             console.log("Vazio");
         }else{
-            //await AsyncStorage.setItem(novaRestricao.id, novaRestricao.titulo);
+           await AsyncStorage.setItem(novaRestricao.id, novaRestricao.titulo);
         }    
     
-        setRestricao("");
+        //setRestricao("");
         
         //await AsyncStorage.removeItem("EXPO_CONSTANTS_INSTALLATION_ID");
         mostraRestricao();
@@ -55,14 +56,14 @@ export default function Restricoes({route}){
         setRestricao("");
     }
 
-    /*async function gerarId(){
+    async function gerarId(){
         const tdsChaves = await AsyncStorage.getAllKeys();
         
         if(tdsChaves <= 0 ){
             return 1;
         }
         return tdsChaves.length + 2;
-    }*/
+    }
 
     return(
         <SafeAreaView>

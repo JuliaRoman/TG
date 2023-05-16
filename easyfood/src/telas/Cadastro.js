@@ -78,7 +78,7 @@ export default function Cadastro( ){
 
     function handleRestricoes(userId) {
         Alert.alert('Cadastro completo!', 'Aproveite nosso aplicativo!', [
-            {text: 'Vamos nessa!', onPress: () => handleRestricoes()}]);
+            {text: 'Vamos nessa!'}]);
         navigation.navigate('Restricoes', {usuario:userId});
     }
 
