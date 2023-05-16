@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export function TagRestricao({item}){
     return (
         <View style = {styles.tag}>
-            <Text style = {styles.txtTag} numberOfLines={"5"}>{item[1]}</Text>
+            <Text style = {styles.txtTag} numberOfLines={5}>{item[1]}</Text>
             <TouchableOpacity style = {styles.btnFecha} onPress={() => AsyncStorage.removeItem(item[0])}><Text style = {styles.txtFecha}>x</Text></TouchableOpacity>
         </View>
     )

@@ -18,6 +18,7 @@ export default function Restricoes({route}){
     const[listaRestricoes, setListaRestricoes] = useState([]);
 
     async function mostraRestricao(){
+        console.log("mostraRestricao");
         console.log(await AsyncStorage.getItem("1"));
         const tdsChaves = await AsyncStorage.getAllKeys();
         const tdsRestricoes = await AsyncStorage.multiGet(tdsChaves);
@@ -27,7 +28,7 @@ export default function Restricoes({route}){
 
     async function salvarRestricao(){
         const novoId = await gerarId();
-        const {usuario} = route.params;
+        //const {usuario} = route.params;
         const novaRestricao = {
             id:novoId.toString(),
             //iduser:usuario,
@@ -130,6 +131,8 @@ const styles = StyleSheet.create({
     btnPrincipal:{
         alignSelf:'center',
         marginTop:50,
+        position:'absolute',
+        bottom:20,
     },
     tags: {
         backgroundColor: '#6B6B6B',
