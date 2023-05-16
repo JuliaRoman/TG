@@ -92,11 +92,11 @@ export default function Cadastro( ){
     return (
         
         <SafeAreaView>
-            {/*<View style = {styles.voltar}>
+            <View style = {styles.voltar}>
                 <Text style = {styles.mensagem}>Já possui conta?</Text>
                 <Text style = {[styles.mensagem, styles.cadastrar]} onPress={handleInicial} >Acessar!</Text>
-            </View>*/}
-            <Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
+            </View>
+            {/*<Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
             <View style = {styles.restricoes}>
                 <View style = {styles.flex}>
                     <Text style = {styles.tags} onPress={adicionarTag}>Intolerância a glúten</Text>
@@ -109,9 +109,9 @@ export default function Cadastro( ){
                 <View style = {styles.flex}>
                     <Text style = {[styles.tags, styles.tagMenor]} onPress={adicionarTag}>Outro</Text>
                 </View>
-            </View>
+    </View>*/}
 
-
+            <Text style = {styles.titulo}>Cadastro</Text>
             <TextInput style = {styles.input} placeholder="Insira seu nome" />
             <TextInput onChangeText={(text) => setEmail(text)} style = {styles.input} placeholder="Insira seu e-mail" />
             <TextInput onChangeText={(text) => setPassword(text)} secureTextEntry={true} style = {styles.input} placeholder="Insira uma senha" />
@@ -139,6 +139,14 @@ const styles = StyleSheet.create({
         textAlign:'center',
         paddingTop: 12.5,
         textTransform: 'uppercase',
+    },
+    titulo: {
+        fontWeight:'900',
+        color: '#E7320E',
+        fontSize: 40,
+        marginLeft: 50,
+        marginTop:50,
+        marginBottom: 25,
     },
     chamada: {
         fontWeight:'500',

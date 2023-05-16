@@ -18,11 +18,11 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <StatusBar />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="BuscaIngrediente">
+        <Stack.Navigator initialRouteName="BuscaNome">
           <Stack.Screen name="Inicial" options={{headerShown:false}} component={Inicial} />
           <Stack.Screen name="Cadastro" options={{headerShown:false}} component={Cadastro} />
           <Stack.Screen name="BuscaIngrediente" options={{headerShown:false}} component={BuscaIngrediente} />
-          <Stack.Screen name="BuscaNome" component={BuscaNome} />
+          <Stack.Screen name="BuscaNome" options={{headerShown:false}} component={BuscaNome} />
           <Stack.Screen name="Receita" options={{headerShown:false}} component={Receita} />
         </Stack.Navigator>
       </NavigationContainer>
