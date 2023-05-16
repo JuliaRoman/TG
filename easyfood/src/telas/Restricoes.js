@@ -37,14 +37,14 @@ export default function Restricoes({route}){
         if(restricao==""){
             console.log("Vazio");
         }else{
-           await AsyncStorage.setItem(novaRestricao.id, novaRestricao.titulo);
+           await AsyncStorage.setItem(novaRestricao.iduser, novaRestricao.titulo);
         }    
     
         //setRestricao("");
         
         //await AsyncStorage.removeItem("EXPO_CONSTANTS_INSTALLATION_ID");
         mostraRestricao();
-        await AsyncStorage.clear(); //Limpar todo Async
+        //await AsyncStorage.clear(); //Limpar todo Async
         //handleBusca();
     }
 
@@ -81,7 +81,7 @@ export default function Restricoes({route}){
                     
                     <Text style = {styles.chamada}>Restrições adicionadas:</Text>
                     <View style={styles.lista}>
-                        <FlatList style={styles.lista} data={listaRestricoes} renderItem={(listaRestricoes) => <TagRestricao {...listaRestricoes}/>} keyExtractor={listaRestricoes => listaRestricoes[0]}></FlatList>
+                       <FlatList style={styles.lista} data={listaRestricoes} renderItem={(listaRestricoes) => <TagRestricao {...listaRestricoes}/>} keyExtractor={listaRestricoes => listaRestricoes[0]}></FlatList>
                     </View>
 
                     <TouchableOpacity style = {[styles.botao, styles.btnPrincipal]} onPress={() => salvarRestricao()}>
