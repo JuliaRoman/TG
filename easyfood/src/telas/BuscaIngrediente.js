@@ -33,7 +33,7 @@ export default function BuscaIngrediente(){
                     },
                   }
                 );
-                
+            
                 console.log("O valor input foi: '" + finallist + "' com o tipo :" + typeof(finallist));
                 console.log(lista);
                 console.log("A resposta: " + res.data.choices[0].text + "\n e o tipo é: " + typeof(res.data.choices[0].text));

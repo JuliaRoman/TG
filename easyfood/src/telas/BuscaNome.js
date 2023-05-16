@@ -56,7 +56,10 @@ export default function BuscaNome(){
             <TouchableOpacity style = {styles.voltar} onPress={handleBuscaIngrediente} >
               <View style = {styles.flex}>
                 <Image style={styles.seta} source={require('../../assets/arrow_left.png')} />
-                <View><Text style = {styles.mensagem}>Mudou de ideia?</Text> <Text style = {[styles.mensagem, styles.destaque]} >Busque sua receita por ingredientes!</Text></View>
+                <View>
+                  <Text style = {styles.mensagem}>Mudou de ideia? </Text>
+                  <Text style = {[styles.mensagem, styles.destaque]}>Busque sua receita por ingredientes!</Text>
+                </View>
               </View>
               
             </TouchableOpacity>
