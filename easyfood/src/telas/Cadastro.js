@@ -12,7 +12,8 @@ export default function Cadastro( ){
     // const { passwordResponse } = route.params;
 
     const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');  
+    const [password, setPassword] = React.useState('');
+    
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
@@ -23,7 +24,9 @@ export default function Cadastro( ){
             console.log('Account created')
             const user = userCredential.user;
             console.log(user);
-            AlertCadastrou();
+
+            handleRestricoes(user.uid);
+            //AlertCadastrou();
         })
         .catch(error => {
             console.log(error.code);
@@ -67,13 +70,16 @@ export default function Cadastro( ){
 
             console.log(password);
 
+
         })
     }
 
     const navigation = useNavigation();
 
-    function handleRestricoes() {
-        navigation.navigate('Restricoes');
+    function handleRestricoes(userId) {
+        Alert.alert('Cadastro completo!', 'Aproveite nosso aplicativo!', [
+            {text: 'Vamos nessa!', onPress: () => handleRestricoes()}]);
+        navigation.navigate('Restricoes', {usuario:userId});
     }
 
     function handleInicial() {
@@ -82,10 +88,10 @@ export default function Cadastro( ){
 
     
 
-    const AlertCadastrou = () =>
+    /*const AlertCadastrou = () =>
     Alert.alert('Cadastro completo!', 'Aproveite nosso aplicativo!', [
-      {text: 'Vamos nessa!', onPress: () => handleRestricoes()},
-    ]);
+      {text: 'Vamos nessa!', onPress: () => handleRestricoes()}},
+    ]);*/
   
     return (
         
