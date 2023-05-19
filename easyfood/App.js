@@ -18,7 +18,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <StatusBar />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="BuscaNome">
+        <Stack.Navigator initialRouteName="Inicial">
           <Stack.Screen name="Inicial" options={{headerShown:false}} component={Inicial} />
           <Stack.Screen name="Cadastro" options={{headerShown:false}} component={Cadastro} />
           <Stack.Screen name="BuscaIngrediente" options={{headerShown:false}} component={BuscaIngrediente} />

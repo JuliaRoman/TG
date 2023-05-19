@@ -14,6 +14,9 @@ export default function BuscaIngrediente(){
     const recipeResponse = async () => {
         var finallist = lista.join(",");
         try {
+            Alert.alert('Carregando!', 'Espere alguns segundos até surgir a tela de receita!', [
+                {text: 'Voltar!'},
+                ]);
           const res = await axios.post(
             "https://api.openai.com/v1/engines/text-davinci-003/completions",
             {
@@ -31,6 +34,7 @@ export default function BuscaIngrediente(){
               },
             }
           );
+          
           console.log("O valor input foi: " + listaFinal + " com o tipo :" + typeof(listaFinal));
           console.log("A resposta: " + res.data.choices[0].text + "\n e o tipo é: " + typeof(res.data.choices[0].text));
           handleReceita(res.data.choices[0].text);
@@ -53,7 +57,10 @@ export default function BuscaIngrediente(){
         setLista(novaLista);
     }
 
-    
+    function limparLista(){
+        const novaLista = lista.filter((lista) => lista !== lista);
+        setLista(novaLista);
+    }
 
     function handleReceita(finalResponse) {
         setListaFinal(lista.join(', '));
@@ -65,7 +72,13 @@ export default function BuscaIngrediente(){
         navigation.navigate('BuscaNome');
     }
 
-    const handleRenderIng = ({item}) => <Text style = {styles.tags}>{item} <TouchableWithoutFeedback onPress={() => removerIngrediente({item})}><Text style = {styles.txtRemover}>+</Text></TouchableWithoutFeedback></Text>
+    const handleRenderIng = ({item}) =>
+        <Text style = {styles.tagRestricao}>
+            <Text style = {styles.tags}>{item} </Text>
+            {/*<TouchableWithoutFeedback style = {styles.btnRemover} onPress={() => removerIngrediente(item)}>
+                <Text style = {styles.txtRemover}>+</Text>
+            </TouchableWithoutFeedback>*/}
+        </Text>
 
     return (
         <SafeAreaView style={styles.tela}>
@@ -76,6 +89,7 @@ export default function BuscaIngrediente(){
                     <Text style = {styles.buttonPlus} >+</Text>
                 </TouchableWithoutFeedback>
             </View>
+            
             <FlatList style = {styles.listagem} data={lista} key={ingrediente} keyExtractor={item => item} renderItem={handleRenderIng} />
             <View style = {styles.fixo}>
                 <Text style = {styles.button} onPress={recipeResponse}>Buscar</Text>
@@ -84,6 +98,10 @@ export default function BuscaIngrediente(){
                     <Text style = {[styles.mensagem, styles.cadastrar]} onPress={handleBuscaNome} >Clique aqui!</Text>
                 </View>
             </View>
+            {/*Botão flutuante - Limpar tudo*/}
+            <Text style = {[styles.btnFlutuante, styles.btnLimpa]} onPress={() => limparLista()}>
+                <Image style = {[styles.icn]} source={require('../../assets/trash-can.png')} />
+            </Text>
         </SafeAreaView>
     ); 
 }
@@ -144,19 +162,24 @@ const styles = StyleSheet.create({
         marginRight: 50,
     },
     tags: {
-        backgroundColor: '#FF8543',
-        color: '#FFFFFF',
+        // color: '#FFFFFF',
+        color: '#FF8543',
         fontSize: 16,
         fontWeight: '900',
-        borderRadius: 50,
-        height: 50,
-        marginLeft: 50,
-        marginBottom: 5,
-        marginRight: 50,
         position:'relative',
-        paddingStart:25,
-        paddingTop:12.5,
         textAlignVertical:'center',
+        paddingTop:12.5,
+        
+    },
+    tagRestricao:{
+        // backgroundColor: '#FF8543',
+        borderRadius: 50,
+        marginLeft: 50,
+        height: 50,
+        marginRight: 50,
+        marginBottom:5,
+        paddingStart:25,
+        position:'relative',
     },
     listagem:{
         marginBottom:120,
@@ -177,19 +200,51 @@ const styles = StyleSheet.create({
         color: '#E7320E',
     },
     btnRemover:{
-        textAlign:'right',
-        position:'absolute',
-        right:5,
+        marginLeft:50,
     },
+
     txtRemover:{
         fontSize:30,
         fontWeight:600,
         textAlign:'right',
-        position:'absolute',
         right:25,
-        textAlignVertical:'center',
-        marginTop:-10,
-        transform:'rotate(45deg)',
+        color:'white',
+        marginLeft:50,
+        textAlignVertical:'bottom',
+        paddingLeft:50,
+    },
+    btnFlutuante:{
+        position:'absolute',
+        bottom:20,
+        width:50,
+        height:50,
+        borderRadius:50,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        shadowColor: "#000",
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 3,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        // textAlign:'center',
+        verticalAlign:'top',
+        paddingStart:10,
+    },
+    btnLimpa:{
+        backgroundColor:'#2c2c2c',
+        right:25,
+    },
+    icn:{
+        maxWidth:45,
+        width:30,
+        height:30,
+        transform: [{scale: 0.5}],
+        position:'absolute',
+        left:10,
+        
     },
 });
 

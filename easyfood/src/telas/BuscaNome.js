@@ -1,5 +1,5 @@
 import React, {useState, Component} from 'react';
-import { Image, TextInput, StyleSheet, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, TextInput, StyleSheet, SafeAreaView, Text, TouchableOpacity, View, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
@@ -11,6 +11,9 @@ export default function BuscaNome(){
 
   const recipeResponse = async () => {
       try {
+        Alert.alert('Carregando!', 'Espere alguns segundos até surgir a tela de receita!', [
+          {text: 'esperar!'},
+          ]);
         const res = await axios.post(
           "https://api.openai.com/v1/engines/text-davinci-003/completions",
           {

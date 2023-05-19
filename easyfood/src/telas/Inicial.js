@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,  } from 'firebase/auth';
 import { FirebaseError, initializeApp } from "firebase/app";
 import { firebaseConfig } from './firebase-config';
-import auth  from '@react-native-firebase/auth';
+// import auth  from '@react-native-firebase/auth';
 // import {
 //     GoogleSignin,
 //     GoogleSigninButton,
@@ -29,27 +29,27 @@ export default function Inicial(){
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    googleLogin = async () => {
-        try {
-          const result = await Expo.Google.logInAsync({
-            androidClientId: "368031575868-es4c6i7m07qluetbv1es96l2keqvec01.apps.googleusercontent.com",
-            //iosClientId: YOUR_CLIENT_ID_HERE,  <-- if you use iOS
-            scopes: ["profile", "email"]
+    // googleLogin = async () => {
+    //     try {
+    //       const result = await Expo.Google.logInAsync({
+    //         androidClientId: "368031575868-es4c6i7m07qluetbv1es96l2keqvec01.apps.googleusercontent.com",
+    //         //iosClientId: YOUR_CLIENT_ID_HERE,  <-- if you use iOS
+    //         scopes: ["profile", "email"]
   
-          })
-          if (result.type === "success") {
-            const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken);
-               firebase.auth().signInAndRetrieveDataWithCredential(credential).then(function(result){
-                 console.log(result);
-               });
-       this.props.navigation.navigate('Where you want to go');
-     } else {
-       console.log("cancelled")
-     }
-        } catch (e) {
-          console.log("error", e)
-        }
-    }
+    //       })
+    //       if (result.type === "success") {
+    //         const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken);
+    //            firebase.auth().signInAndRetrieveDataWithCredential(credential).then(function(result){
+    //              console.log(result);
+    //            });
+    //    this.props.navigation.navigate('Where you want to go');
+    //  } else {
+    //    console.log("cancelled")
+    //  }
+    //     } catch (e) {
+    //       console.log("error", e)
+    //     }
+    // }
 
     const handleSignIn = () => {
         signInWithEmailAndPassword(auth, email, password)
@@ -65,6 +65,7 @@ export default function Inicial(){
             console.log(error);
             switch (error.code) {
                 case 'auth/user-not-found':
+                    console.log("entrou, usuário não encontrado.");
                     Alert.alert('Usuário não encontrado!', 'Não foi encontrado um usuário com essas credenciais',{text: 'Voltar'});
                     break;
                 
@@ -108,7 +109,11 @@ export default function Inicial(){
       {text: 'OK', onPress: () => handleCadastro()},
     ]);
 
-
+    const ferramentaFutura = () => {
+        Alert.alert('Chegando...', 'Logo você poderá se registrar e entrar usando sua conta Google!', [
+            {text: 'Voltar'},
+          ]);
+    }
 
     /*const navigation = setNavigation();**/
 
@@ -144,9 +149,9 @@ export default function Inicial(){
             {/*<Button title="Entrar" style = {styles.botao} onPress={() => navigation.navigate('')}/>*/}
             <Text style = {styles.botao} onPress={handleSignIn}>Entrar</Text>
             <Text style = {styles.mensagem}>Ou</Text>
-            <TouchableOpacity style={[styles.flex, styles.btnGoogle]}> 
+            <TouchableOpacity style={[styles.flex, styles.btnGoogle]} onPress={ferramentaFutura}> 
                 <Image style = {styles.imgGoogle} source={require('../../assets/icon_google.png')} />
-                <Text style = {styles.txtGoogle}> Continue com o Google</Text>
+                <Text style = {styles.txtGoogle}> Chegando em breve...</Text>
             </TouchableOpacity>
             <Text style = {styles.mensagem}>Ainda não possui conta? <Text style = {styles.destaque} onPress={AlertCadastrar}>Cadastre-se aqui!</Text></Text>    
 
@@ -184,6 +189,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         textAlign:'center',
         paddingLeft:20,
+        verticalAlign: 'middle',
     },
     btnGoogle:{
         borderWidth:1,
