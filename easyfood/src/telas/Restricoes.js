@@ -31,7 +31,6 @@ export default function Restricoes({route}){
         //const {usuario} = route.params;
         const novaRestricao = {
             id:novoId.toString(),
-            //iduser:usuario,
             titulo:restricao,
         }
 
@@ -48,7 +47,7 @@ export default function Restricoes({route}){
         //await AsyncStorage.clear(); //Limpar todo Async
     }
 
-    function adicionarNovaRestricao(tag){
+    async function adicionarNovaRestricao(tag){
         setRestricao(tag);
         console.log(restricao);
 
@@ -56,13 +55,25 @@ export default function Restricoes({route}){
         setRestricao("");
     }
 
+    async function idChave(){
+        return await AsyncStorage.getAllKeys();
+    }
+
+    async function limparLista(){
+        setRestricao("");
+        AsyncStorage.clear(); //Limpar todo Async
+        AsyncStorage.removeItem("EXPO_CONSTANTS_INSTALLATION_ID");
+        setRestricao("");
+        mostraRestricao();
+    }
+
     async function gerarId(){
-        const tdsChaves = await AsyncStorage.getAllKeys();
-        
+        const tdsChaves = await idChave();
         if(tdsChaves <= 0 ){
             return 1;
+        }else{
+            return tdsChaves + 1;
         }
-        return tdsChaves.length + 2;
     }
 
     return(
@@ -88,7 +99,10 @@ export default function Restricoes({route}){
                     </TouchableOpacity>
                 </View>
 
-                
+            {/*Botão flutuante - Limpar tudo*/}
+            <Text style = {[styles.btnFlutuante, styles.btnLimpa]} onPress={() => limparLista()}>
+                <Image style = {[styles.icn]} source={require('../../assets/trash-can.png')} />
+            </Text>
         </SafeAreaView>
     );
 }
@@ -186,5 +200,28 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         color: '#5B5B5B',
         textAlign: 'center',
+    },btnFlutuante:{
+        position:'absolute',
+        bottom:20,
+        width:50,
+        height:50,
+        borderRadius:50,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        shadowColor: "#000",
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 3,
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        // textAlign:'center',
+        verticalAlign:'top',
+        paddingStart:10,
+    },
+    btnLimpa:{
+        backgroundColor:'#2c2c2c',
+        right:25,
     },
 });
