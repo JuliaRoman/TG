@@ -72,8 +72,8 @@ export default function Cadastro( ){
 
     const navigation = useNavigation();
 
-    function handleBuscaIngrediente() {
-        navigation.navigate('BuscaIngrediente');
+    function handleRestricoes() {
+        navigation.navigate('Restricoes');
     }
 
     function handleInicial() {
@@ -86,7 +86,7 @@ export default function Cadastro( ){
 
     const AlertCadastrou = () =>
     Alert.alert('Cadastro completo!', 'Aproveite nosso aplicativo!', [
-      {text: 'Vamos nessa!', onPress: () => handleBuscaIngrediente()},
+      {text: 'Vamos nessa!', onPress: () => handleRestricoes()},
     ]);
   
     return (

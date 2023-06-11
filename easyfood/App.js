@@ -10,7 +10,6 @@ import BuscaIngrediente from './src/telas/BuscaIngrediente.js';
 
 import 'expo-dev-client';
 
-
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -18,12 +17,13 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <StatusBar />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Inicial">
+        <Stack.Navigator initialRouteName="Restricoes">
           <Stack.Screen name="Inicial" options={{headerShown:false}} component={Inicial} />
           <Stack.Screen name="Cadastro" options={{headerShown:false}} component={Cadastro} />
           <Stack.Screen name="BuscaIngrediente" options={{headerShown:false}} component={BuscaIngrediente} />
           <Stack.Screen name="BuscaNome" options={{headerShown:false}} component={BuscaNome} />
           <Stack.Screen name="Receita" options={{headerShown:false}} component={Receita} />
+          <Stack.Screen name="Restricoes" options={{headerShown:false}} component={Restricoes} />
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />
