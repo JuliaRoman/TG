@@ -34,14 +34,27 @@ export default function Receita( {route} ){
             </ScrollView>
             {/*Botões flutuantes*/}
             <Text style = {[styles.btnFlutuante, styles.btnBusca]} onPress={handleBusca}>
-                    <Image style={styles.icn} source={require('../../assets/icon_search.png')} />
-                </Text>
-                <Text style = {[styles.btnFlutuante, styles.btnPerfil]} onPress={handlePerfil}>
-                    <Image style={styles.icn} source={require('../../assets/icon_perfil.png')} />
-                </Text>
-                <Text style = {[styles.btnFlutuante, styles.btnShare]} onPress={share}>
-                    <Image style={styles.icn} source={require('../../assets/share.png')} />
-                </Text>
+                <Image style={styles.icn} source={require('../../assets/icon_search.png')} />
+            </Text>
+            <Text style = {[styles.btnFlutuante, styles.btnPerfil]} onPress={handlePerfil}>
+                <Image style={styles.icn} source={require('../../assets/icon_perfil.png')} />
+            </Text>
+            <Text style = {[styles.btnFlutuante, styles.btnShare]} onPress={share}>
+                <Image style={styles.icn} source={require('../../assets/share.png')} />
+            </Text>
+
+            <Modal style = {styles.fundoModal} animationType="slide" transparent={true} visible={visibilidade} onRequestClose={() => {setVisilidade(false)}}>
+                <View style = {styles.modal}>
+                    <TouchableOpacity style = {styles.btnFechar} onPress={() => setVisilidade(false)}>
+                        <Text style = {styles.txtFechar}>x</Text>
+                    </TouchableOpacity>
+                    <Text style = {styles.titPerfil}>Seu perfil</Text>
+                    <FlatList style={styles.lista} data={restricoes} renderItem={(restricoes) => <TagRestricao {...restricoes}/>} keyExtractor={restricoes => restricoes[0]}></FlatList>
+                    <TouchableOpacity onPress={() => setVisilidade(false)}>
+                        <Text style = {styles.buttonAtt}>ATUALIZAR</Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
         </SafeAreaView>
     ); 
 }
@@ -100,6 +113,29 @@ const styles = StyleSheet.create({
         resizeMode:'contain',
         width:35,
         height:35,
+    },
+    modal:{
+        backgroundColor:'white',
+        alignItems:'center',
+        maxWidth:'75%',
+        width: 300,
+        minHeight:250,
+        alignSelf:'center',
+        borderRadius:15,
+        marginTop: '50%',
+        padding:25,
+    },
+    fundoModal:{
+        backgroundColor:'#333',
+    },
+    btnFechar:{
+        position:'absolute',
+        right:25,
+        top:15,
+    },
+    txtFechar:{
+        fontSize:25,
+        fontWeight:600,
     },
 });
 
