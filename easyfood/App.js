@@ -7,6 +7,7 @@ import Inicial from './src/telas/Inicial.js';
 import BuscaNome from './src/telas/BuscaNome.js';
 import Receita from './src/telas/Receita.js';
 import BuscaIngrediente from './src/telas/BuscaIngrediente.js';
+import Restricoes from './src/telas/Restricoes.js';
 
 import 'expo-dev-client';
 
