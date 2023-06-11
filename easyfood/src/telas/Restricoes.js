@@ -69,7 +69,7 @@ export default function Restricoes({route}){
         <SafeAreaView>
             <Text style = {styles.chamada}>Possui alguma restrição ou dieta alimentar?</Text>
                 <View style = {styles.restricoes}>
-
+                    <Image style={styles.imgTitulo} source={require('../../assets/icon_nova_restricao.png')} />
                     <View style={styles.flex}>
                     <TextInput style = {styles.input} onChangeText={(restricao)=>setRestricao(restricao)} placeholder="Insira restrição ou dieta" />
                         <TouchableOpacity onPress={() => adicionarNovaRestricao(restricao)}>
