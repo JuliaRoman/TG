@@ -8,32 +8,57 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function BuscaIngrediente(){
 
     
-
+    let restricoes;
     const navigation = useNavigation();
     const [ingrediente, setIngrediente] = useState("");
     const [lista, setLista] = useState([]);
     const [listaFinal, setListaFinal] = useState("");
 
-    const getStorage = async() => {
-        const tdsChaves = await AsyncStorage.getAllKeys();
-        return AsyncStorage.multiGet(tdsChaves);
+    // const getStorage = async() => {
+    //     const tdsChaves = await AsyncStorage.getAllKeys();
+    //     const tdsRestricoes = await AsyncStorage.multiGet(tdsChaves)
+    //     console.log(tdsRestricoes.getItem[0]);
+    // }
+    function getRestricoes() {
+        AsyncStorage.getAllKeys().then((keyArray) => {
+            AsyncStorage.multiGet(keyArray).then((keyValArray) => {
+              let myStorage = {};
+              for (let keyVal of keyValArray) {
+                myStorage[keyVal[0]] = keyVal[1];
+              }
+              
+              console.log('CURRENT STORAGE do BuscaIngrediente: ' + myStorage["1"].toString() + " e " + JSON.stringify(myStorage));
+              restricoes = myStorage["1"].toString();
+              console.log("o tipo da restricoes é: " + typeof(restricoes));
+
+              recipeResponse();
+          
+              // Restante do código que depende do valor de restricoes
+              // ...
+            });
+          });
     }
+
 
     const recipeResponse = async () => {
 
-        let restringe = getStorage();
-        console.log("restrições: ");
-        console.log(restringe);
-
         var finallist = lista.join(",");
+        // let restringe = getStorage();
+        // console.log("restrições: ");
+        // console.log(restringe);
+
+
+        var promptText = "me dê apenas uma receita existente (em formato de receita), descreva o sabor e apresente sua instrução com os ingredientes em [ "+ finallist + " ], restringindo os alimentos que não se encaixem na dieta [" + restricoes + "] e indicando outros no lugar." +"\nCaso seja inserido algo que possa ferir os direitos humanos, diga que isso é proíbido. \n Se não foi inserido um ingrediente ou foi inserido um texto sem nexo com o assunto, então avise que não foram passados ingredientes validos e não dê uma receita.\nCaso não tenha nenhuma receita já existente que use apenas esses ingredientes como principal, indique outra receita com ingredientes similares ou deixe claro que não existe uma receita e sobre a questão disso na saúde.";
+        console.log("ultimo console: " + promptText);
         try {
             Alert.alert('Carregando!', 'Espere alguns segundos até surgir a tela de receita!', [
                 {text: 'Voltar!'},
                 ]);
+            console.log(promptText);
           const res = await axios.post(
             "https://api.openai.com/v1/engines/text-davinci-003/completions",
             {
-              prompt: "me dê apenas uma receita existente (em formato de receita), descreva o sabor e apresente sua instrução com os ingredientes em [ "+ finallist + " ].\n Caso seja inserido algo que possa ferir os direitos humanos, diga que isso é proíbido. \n Se não foi inserido um ingrediente ou foi inserido um texto sem nexo com o assunto, então avise que não foram passados ingredientes validos e não dê uma receita.\nCaso não tenha nenhuma receita já existente que use apenas esses ingredientes como principal, indique outra receita com ingredientes similares ou deixe claro que não existe uma receita e sobre a questão disso na saúde.",
+              prompt: promptText,
               temperature: 0.3,
               max_tokens: 600,
               top_p: 1,
@@ -105,7 +130,7 @@ export default function BuscaIngrediente(){
             
             <FlatList style = {styles.listagem} data={lista} key={ingrediente} keyExtractor={item => item} renderItem={handleRenderIng} />
             <View style = {styles.fixo}>
-                <Text style = {styles.button} onPress={recipeResponse}>Buscar</Text>
+                <Text style = {styles.button} onPress={getRestricoes}>Buscar</Text>
                 <View style = {styles.voltar}>
                     <Text style = {styles.mensagem}>Deseja pesquisar por nome de receita?</Text>
                     <Text style = {[styles.mensagem, styles.cadastrar]} onPress={handleBuscaNome} >Clique aqui!</Text>
