@@ -3,15 +3,28 @@ import { Image, TextInput, StyleSheet, SafeAreaView, Alert, Text, View, FlatList
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { concat } from 'async';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BuscaIngrediente(){
+
+    
 
     const navigation = useNavigation();
     const [ingrediente, setIngrediente] = useState("");
     const [lista, setLista] = useState([]);
     const [listaFinal, setListaFinal] = useState("");
 
+    const getStorage = async() => {
+        const tdsChaves = await AsyncStorage.getAllKeys();
+        return AsyncStorage.multiGet(tdsChaves);
+    }
+
     const recipeResponse = async () => {
+
+        let restringe = getStorage();
+        console.log("restrições: ");
+        console.log(restringe);
+
         var finallist = lista.join(",");
         try {
             Alert.alert('Carregando!', 'Espere alguns segundos até surgir a tela de receita!', [
@@ -75,9 +88,9 @@ export default function BuscaIngrediente(){
     const handleRenderIng = ({item}) =>
         <Text style = {styles.tagRestricao}>
             <Text style = {styles.tags}>{item} </Text>
-            {/*<TouchableWithoutFeedback style = {styles.btnRemover} onPress={() => removerIngrediente(item)}>
+            {/* <TouchableWithoutFeedback style = {styles.btnRemover} onPress={() => removerIngrediente(item)}>
                 <Text style = {styles.txtRemover}>+</Text>
-            </TouchableWithoutFeedback>*/}
+            </TouchableWithoutFeedback> */}
         </Text>
 
     return (

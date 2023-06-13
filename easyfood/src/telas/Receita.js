@@ -1,14 +1,26 @@
-import React, {Component} from 'react';
-import { Text, StyleSheet, SafeAreaView, Image, Alert, ScrollView, Share } from 'react-native';
+import React, {useState, Component} from 'react';
+import { Text, StyleSheet, SafeAreaView, Image, Alert, ScrollView, Share, Modal, View, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+import {TagRestricao} from "../componentes/TagRestricao.js";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Receita( {route} ){
 
     const { response } = route.params;
-    console.log(response);
+    console.log("response chegou a página de receita: " + response);
     console.log(route.params);
 
     const navigation = useNavigation();
+
+    const [visibilidade, setVisilidade] = useState(false);
+    const [restricoes, setRestricoes] = useState("");
+
+    async function colherDados(){
+        const tdsChaves = await AsyncStorage.getAllKeys();
+        setRestricoes(await AsyncStorage.multiGet(tdsChaves));
+        console.log(AsyncStorage.multiGet(tdsChaves));
+    }
 
     const share = () => {
         Share.share({
@@ -24,7 +36,8 @@ export default function Receita( {route} ){
     }
 
     function handlePerfil() {
-        Alert.alert('Meu Perfil');
+        colherDados();
+        setVisilidade(true);
     }
     return (
         <SafeAreaView style = {styles.tela}>
@@ -50,6 +63,7 @@ export default function Receita( {route} ){
                     </TouchableOpacity>
                     <Text style = {styles.titPerfil}>Seu perfil</Text>
                     <FlatList style={styles.lista} data={restricoes} renderItem={(restricoes) => <TagRestricao {...restricoes}/>} keyExtractor={restricoes => restricoes[0]}></FlatList>
+                    
                     <TouchableOpacity onPress={() => setVisilidade(false)}>
                         <Text style = {styles.buttonAtt}>ATUALIZAR</Text>
                     </TouchableOpacity>
@@ -95,7 +109,6 @@ const styles = StyleSheet.create({
             height: 4,
         },
         textAlign:'center',
-        textVerticalAlign:'top',
     },
     btnBusca:{
         backgroundColor:'#2c2c2c',
@@ -137,5 +150,8 @@ const styles = StyleSheet.create({
         fontSize:25,
         fontWeight:600,
     },
+    titPerfil:{
+        marginBottom:20,
+    }
 });
 

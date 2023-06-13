@@ -4,9 +4,16 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage"; 
 
 export function TagRestricao({item}){
+
+    const teste = "";
+    async function retiraritem(teste){
+        console.log(teste);
+        await AsyncStorage.removeItem(teste);
+    } 
     return (
         <View style = {styles.tag}>
-            <Text style = {styles.txtTag} numberOfLines={item[0]}>{item[1]}</Text>
+            <Text style = {styles.txtTag} numberOfLines={5}>{item[1]}</Text>
+            <TouchableOpacity style = {styles.btnFecha} onPress={() => retiraritem(item[0])}><Text style = {styles.txtFecha}>x</Text></TouchableOpacity>
         </View>
     )
 }

@@ -9,7 +9,7 @@ import {TagRestricao} from "../componentes/TagRestricao.js"
 export default function Restricoes({route}){
     
     const navigation = useNavigation();
-
+    
     function handleBusca() {
         navigation.navigate('BuscaIngrediente');
     }
@@ -19,7 +19,7 @@ export default function Restricoes({route}){
 
     async function mostraRestricao(){
         console.log("mostraRestricao");
-        console.log(await AsyncStorage.getItem("1"));
+        console.log("asyncGetItem: " + await AsyncStorage.getItem("1"));
         const tdsChaves = await AsyncStorage.getAllKeys();
         const tdsRestricoes = await AsyncStorage.multiGet(tdsChaves);
         setListaRestricoes(tdsRestricoes);
@@ -27,36 +27,61 @@ export default function Restricoes({route}){
     }
 
     async function salvarRestricao(){
-        const novoId = await gerarId();
+        //const novoId = gerarId().toString;
         //const {usuario} = route.params;
-        const novaRestricao = {
-            id:novoId.toString(),
+        
+        let novaRestricao = {
+            //id:novoId,
+            id:"1",
             titulo:restricao,
         }
+
+        let allKeys = AsyncStorage.getAllKeys().then((keyArray) => {
+            console.log("passo 1");
+            AsyncStorage.multiGet(keyArray).then((keyValArray) => {
+                console.log("passo 2");
+                let myStorage = {};
+                for (let keyVal of keyValArray) {
+                    myStorage[keyVal[0]] = keyVal[1];
+                }
+      
+            console.log('CURRENT STORAGE: ', myStorage);
+            if (myStorage.length > 0){
+            
+                console.log("total de keys: " + AsyncStorage.getAllKeys.length);
+                console.log("tem mais de uma key");
+                novaRestricao = {
+                    //id:novoId,
+                    id:"2",
+                    titulo:restricao,
+                }
+            }
+
+          })
+        });
+
+        
 
         if(restricao==""){
             console.log("Vazio");
         }else{
-           await AsyncStorage.setItem(novaRestricao.id, novaRestricao.titulo);
+            console.log("setando nova restricao");
+            await AsyncStorage.setItem(novaRestricao.id, novaRestricao.titulo);
         }    
     
         //setRestricao("");
         
-        //await AsyncStorage.removeItem("EXPO_CONSTANTS_INSTALLATION_ID");
+        await AsyncStorage.removeItem("EXPO_CONSTANTS_INSTALLATION_ID");
         mostraRestricao();
         //await AsyncStorage.clear(); //Limpar todo Async
     }
 
     async function adicionarNovaRestricao(tag){
         setRestricao(tag);
-        console.log(restricao);
+        console.log("restricao:" + restricao);
 
         salvarRestricao();
         setRestricao("");
-    }
-
-    async function idChave(){
-        return await AsyncStorage.getAllKeys();
     }
 
     async function limparLista(){
@@ -68,8 +93,9 @@ export default function Restricoes({route}){
     }
 
     async function gerarId(){
-        const tdsChaves = await idChave();
-        if(tdsChaves <= 0 ){
+        const tdsChaves =  parseInt(AsyncStorage.getAllKeys());
+        console.log("grarId:" +tdsChaves);
+        if(tdsChaves <= 0 || tdsChaves == NaN || tdsChaves == null ){
             return 1;
         }else{
             return tdsChaves + 1;
@@ -178,6 +204,7 @@ const styles = StyleSheet.create({
     },
     lista:{
         alignSelf:'center',
+        maxHeight:325,
     },
     input:{
         borderWidth:1,
@@ -200,7 +227,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         color: '#5B5B5B',
         textAlign: 'center',
-    },btnFlutuante:{
+    },
+    btnFlutuante:{
         position:'absolute',
         bottom:20,
         width:50,
@@ -223,5 +251,14 @@ const styles = StyleSheet.create({
     btnLimpa:{
         backgroundColor:'#2c2c2c',
         right:25,
+    },
+    icn:{
+        maxWidth:45,
+        width:30,
+        height:30,
+        transform: [{scale: 0.5}],
+        position:'absolute',
+        left:10,
+        
     },
 });
